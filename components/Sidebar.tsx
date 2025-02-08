@@ -14,7 +14,9 @@ import {
   HiX,
 } from "react-icons/hi";
 import { HiInboxStack } from "react-icons/hi2";
+import { FaMoon, FaSun } from "react-icons/fa";
 import { SiHomeassistantcommunitystore } from "react-icons/si";
+import { useTheme } from "@/context/ThemeContext";
 
 const navItems = [
   { name: "Home", href: "/", icon: <HiHome className="w-5 h-5" /> },
@@ -42,13 +44,26 @@ const navItems = [
 ];
 
 const Sidebar: FC = () => {
+  const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const sidebarBg =
+    theme === "dark"
+      ? "from-gray-900 to-gray-800"
+      : "from-teal-700 to-teal-800";
+  const textColor = theme === "dark" ? "text-gray-100" : "text-white";
+  const hoverBg = theme === "dark" ? "hover:bg-gray-700" : "hover:bg-white/5";
+  const activeBg = theme === "dark" ? "bg-gray-700" : "bg-white/10";
+  const borderColor = theme === "dark" ? "border-gray-700" : "border-white/10";
+  const mobileNavBg = theme === "dark" ? "bg-gray-800" : "bg-teal-800";
 
   return (
     <>
       {/* Sidebar for large screens */}
-      <aside className="hidden lg:flex fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-teal-700 to-teal-800 text-white shadow-xl p-6 flex-col border-r-2 border-r-white">
+      <aside
+        className={`hidden lg:flex fixed top-0 left-0 h-full w-64 bg-gradient-to-b ${sidebarBg} ${textColor} shadow-xl p-6 flex-col border-r-2 ${borderColor}`}
+      >
         {/* Logo Section */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -56,8 +71,12 @@ const Sidebar: FC = () => {
           className="mb-12 pl-2"
         >
           <h2 className="text-2xl font-bold flex items-center gap-2">
-            <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-              <span className="text-lg font-semibold text-white">N</span>
+            <div
+              className={`w-8 h-8 ${
+                theme === "dark" ? "bg-gray-700" : "bg-white/20"
+              } rounded-lg flex items-center justify-center`}
+            >
+              <span className={`text-lg font-semibold ${textColor}`}>N</span>
             </div>
             Nitibu Healthcare
           </h2>
@@ -79,11 +98,11 @@ const Sidebar: FC = () => {
                     <span
                       className={`flex items-center gap-3 px-4 py-3 rounded-xl text-lg transition-all ${
                         isActive
-                          ? "bg-white/10 text-white shadow-inner font-semibold"
-                          : "hover:bg-white/5 hover:pl-6 text-white/90"
+                          ? `${activeBg} ${textColor} shadow-inner font-semibold`
+                          : `${hoverBg} ${textColor}/90`
                       }`}
                     >
-                      <span className="text-white/80">{item.icon}</span>
+                      <span className={`${textColor}/80`}>{item.icon}</span>
                       {item.name}
                     </span>
                   </Link>
@@ -94,28 +113,50 @@ const Sidebar: FC = () => {
         </nav>
 
         {/* Bottom Section */}
-        <div className="border-t border-white/10 pt-4">
+        <div className={`border-t ${borderColor} pt-4 space-y-3`}>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:bg-white/5 hover:pl-6 transition-all">
+            <button
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl ${textColor}/80 ${hoverBg} transition-all`}
+            >
               <HiCog className="w-5 h-5" />
               Settings
             </button>
           </motion.div>
+
+          {/* Theme Toggle Button */}
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.9 }}
+            onClick={toggleTheme}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${hoverBg} ${textColor}/80`}
+          >
+            {theme === "dark" ? (
+              <FaSun className="w-5 h-5 text-yellow-400" />
+            ) : (
+              <FaMoon className="w-5 h-5 text-gray-400" />
+            )}
+            {theme === "dark" ? "Light Mode" : "Dark Mode"}
+          </motion.button>
         </div>
       </aside>
 
       {/* Top Navbar for small screens */}
-      <nav className="lg:hidden fixed top-0 left-0 right-0 bg-teal-700 text-white shadow-md px-6 py-4 flex justify-between items-center z-50">
+      <nav
+        className={`lg:hidden fixed top-0 left-0 right-0 ${
+          theme === "dark" ? "bg-gray-900" : "bg-teal-700"
+        } ${textColor} shadow-md px-6 py-4 flex justify-between items-center z-50`}
+      >
         <h2 className="text-xl font-bold">Nitibu Healthcare</h2>
 
         {/* Mobile Menu Button */}
         <button
           onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-          className="text-white focus:outline-none"
+          className={`${textColor} focus:outline-none`}
         >
           {isMobileMenuOpen ? (
             <HiX className="w-7 h-7" />
@@ -132,7 +173,7 @@ const Sidebar: FC = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="lg:hidden fixed top-[58px] left-0 right-0 bg-teal-800 text-white shadow-lg overflow-hidden z-50"
+            className={`lg:hidden fixed top-[58px] left-0 right-0 ${mobileNavBg} ${textColor} shadow-lg overflow-hidden z-50`}
           >
             <ul className="flex flex-col space-y-2 p-4">
               {navItems.map((item) => {
@@ -143,8 +184,8 @@ const Sidebar: FC = () => {
                       <span
                         className={`flex items-center gap-3 px-4 py-3 rounded-xl text-lg transition-all ${
                           isActive
-                            ? "bg-white/10 text-white shadow-inner font-semibold"
-                            : "hover:bg-white/5 text-white/90"
+                            ? `${activeBg} ${textColor} shadow-inner font-semibold`
+                            : `${hoverBg} ${textColor}/90`
                         }`}
                       >
                         {item.icon}
@@ -154,6 +195,21 @@ const Sidebar: FC = () => {
                   </li>
                 );
               })}
+
+              {/* Theme Toggle Button in Mobile Menu */}
+              <li>
+                <button
+                  onClick={toggleTheme}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${hoverBg} ${textColor}/80`}
+                >
+                  {theme === "dark" ? (
+                    <FaSun className="w-5 h-5 text-white" />
+                  ) : (
+                    <FaMoon className="w-5 h-5 text-gray-400" />
+                  )}
+                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
+                </button>
+              </li>
             </ul>
           </motion.div>
         )}

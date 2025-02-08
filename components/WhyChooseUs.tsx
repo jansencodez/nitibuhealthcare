@@ -63,11 +63,15 @@ const features = [
   },
 ];
 
-export const WhyChooseUs = () => {
+export const WhyChooseUs = ({ darkMode }: { darkMode: boolean }) => {
   return (
-    <section className="py-20 bg-teal-50">
+    <section className={`py-20 ${darkMode ? "bg-gray-800" : "bg-teal-50"} `}>
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 text-teal-900">
+        <h2
+          className={`text-4xl font-bold text-center mb-12 ${
+            darkMode ? "text-teal-400" : "text-teal-900"
+          }`}
+        >
           Why Choose Nitibu Healthcare?
         </h2>
 
@@ -75,18 +79,30 @@ export const WhyChooseUs = () => {
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow"
+              className={`${
+                darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-white"
+              } p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: "-100px" }}
               transition={{ delay: index * 0.1 }}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold mb-2 text-teal-900">
+                <div className={`mb-4 ${
+                    darkMode ? "text-teal-400" : "text-teal-600"
+                  }`}>{feature.icon}</div>
+                <h3
+                  className={`text-xl font-semibold mb-2 ${
+                    darkMode ? "text-gray-100" : "text-teal-900"
+                  }`}
+                >
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p
+                  className={`leading-relaxed ${
+                    darkMode ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
                   {feature.description}
                 </p>
               </div>

@@ -3,78 +3,104 @@
 import Link from "next/link";
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { MdLocationOn, MdPhone, MdEmail } from "react-icons/md";
+import { useTheme } from "@/context/ThemeContext";
 
 const Footer = () => {
+  const { theme } = useTheme();
+
   return (
-    <footer className="bg-teal-900 text-white mt-20 rounded-t-3xl">
+    <footer
+      className={`transition-colors duration-300 ${
+        theme === "dark" ? "bg-gray-900" : "bg-teal-900"
+      }`}
+    >
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold">Nitibu Healthcare</h3>
-            <p className="text-gray-300">
+            <h3
+              className={`text-2xl font-bold ${
+                theme === "dark" ? "text-gray-100" : "text-white"
+              }`}
+            >
+              Nitibu Healthcare
+            </h3>
+            <p
+              className={`${
+                theme === "dark" ? "text-gray-400" : "text-teal-100"
+              }`}
+            >
               Delivering quality healthcare solutions across East & Central
               Africa
             </p>
             <div className="flex space-x-4 mt-4">
-              <a href="#" className="hover:text-teal-300 transition-colors">
-                <FaFacebook size={24} />
-              </a>
-              <a href="#" className="hover:text-teal-300 transition-colors">
-                <FaTwitter size={24} />
-              </a>
-              <a href="#" className="hover:text-teal-300 transition-colors">
-                <FaLinkedin size={24} />
-              </a>
-              <a href="#" className="hover:text-teal-300 transition-colors">
-                <FaInstagram size={24} />
-              </a>
+              {[
+                { Icon: FaFacebook, href: "#" },
+                { Icon: FaTwitter, href: "#" },
+                { Icon: FaLinkedin, href: "#" },
+                { Icon: FaInstagram, href: "#" },
+              ].map(({ Icon, href }, index) => (
+                <a
+                  key={index}
+                  href={href}
+                  className={`transition-colors ${
+                    theme === "dark"
+                      ? "text-gray-400 hover:text-teal-400"
+                      : "text-teal-100 hover:text-teal-300"
+                  }`}
+                >
+                  <Icon size={24} />
+                </a>
+              ))}
             </div>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Quick Links</h4>
-            <ul className="space-y-2 text-gray-300">
-              <li>
-                <Link
-                  href="/about"
-                  className="hover:text-teal-300 transition-colors"
-                >
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="hover:text-teal-300 transition-colors"
-                >
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products"
-                  className="hover:text-teal-300 transition-colors"
-                >
-                  Products
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:text-teal-300 transition-colors"
-                >
-                  Contact
-                </Link>
-              </li>
+            <h4
+              className={`text-lg font-semibold ${
+                theme === "dark" ? "text-gray-100" : "text-white"
+              }`}
+            >
+              Quick Links
+            </h4>
+            <ul className="space-y-2">
+              {[
+                { href: "/about", label: "About Us" },
+                { href: "/services", label: "Services" },
+                { href: "/products", label: "Products" },
+                { href: "/contact", label: "Contact" },
+              ].map(({ href, label }, index) => (
+                <li key={index}>
+                  <Link
+                    href={href}
+                    className={`transition-colors ${
+                      theme === "dark"
+                        ? "text-gray-400 hover:text-teal-400"
+                        : "text-teal-100 hover:text-teal-300"
+                    }`}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Contact Us</h4>
-            <div className="space-y-3 text-gray-300">
+            <h4
+              className={`text-lg font-semibold ${
+                theme === "dark" ? "text-gray-100" : "text-white"
+              }`}
+            >
+              Contact Us
+            </h4>
+            <div
+              className={`space-y-3 ${
+                theme === "dark" ? "text-gray-400" : "text-teal-100"
+              }`}
+            >
               <div className="flex items-center space-x-2">
                 <MdLocationOn className="flex-shrink-0" />
                 <span>AEA Plaza, Valley Rd, Nairobi, Kenya</span>
@@ -89,44 +115,33 @@ const Footer = () => {
               </div>
             </div>
           </div>
-
-          {/* Newsletter
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Newsletter</h4>
-            <p className="text-gray-300">
-              Subscribe to our newsletter for updates
-            </p>
-            <form className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="px-4 py-2 rounded-lg text-gray-900 flex-1"
-              />
-              <button
-                type="submit"
-                className="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition-colors"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div> */}
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-teal-800 mt-8 pt-8 text-center text-gray-300">
+        <div
+          className={`border-t mt-8 pt-8 text-center ${
+            theme === "dark"
+              ? "border-gray-700 text-gray-400"
+              : "border-teal-800 text-teal-100"
+          }`}
+        >
           <p>
             © {new Date().getFullYear()} Nitibu Healthcare. All rights reserved.
           </p>
           <div className="mt-2">
             <Link
               href="/privacy"
-              className="hover:text-teal-300 transition-colors mx-2"
+              className={`mx-2 transition-colors ${
+                theme === "dark" ? "hover:text-teal-400" : "hover:text-teal-300"
+              }`}
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="hover:text-teal-300 transition-colors mx-2"
+              className={`mx-2 transition-colors ${
+                theme === "dark" ? "hover:text-teal-400" : "hover:text-teal-300"
+              }`}
             >
               Terms of Service
             </Link>

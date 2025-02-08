@@ -11,11 +11,13 @@ import {
   FaLeaf,
   FaGlobe,
 } from "react-icons/fa";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function ServicesPage() {
+  const { theme } = useTheme();
   const services = [
     {
-      icon: <FaTruck className="w-8 h-8 text-teal-600" />,
+      icon: <FaTruck className="w-8 h-8 text-teal-600 dark:text-teal-400" />,
       title: "Distribution",
       description:
         "Nitibu Healthcare provides efficient and reliable distribution services, ensuring that our medical equipment and supplies reach healthcare providers promptly and in perfect condition.",
@@ -51,8 +53,13 @@ export default function ServicesPage() {
         "While we are deeply rooted in the region, Nitibu Healthcare has a growing global presence. We partner with international manufacturers and suppliers to bring the best medical equipment and supplies to our clients.",
     },
   ];
+
   return (
-    <div className="min-h-screen bg-teal-50 bg-opacity-50 relative overflow-hidden">
+    <div
+      className={`min-h-screen relative overflow-hidden ${
+        theme === "dark" ? "bg-gray-900" : "bg-teal-50"
+      }`}
+    >
       {/* Hero Section */}
       <section className="relative h-[60vh]">
         <div className="absolute inset-0">
@@ -63,7 +70,13 @@ export default function ServicesPage() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-900/70 to-teal-800/40" />
+          <div
+            className={`absolute inset-0 bg-gradient-to-r ${
+              theme === "dark"
+                ? "from-gray-900/80 to-gray-800/50"
+                : "from-teal-900/70 to-teal-800/40"
+            }`}
+          />
         </div>
 
         <div className="container mx-auto px-4 relative h-full flex items-center">
@@ -80,7 +93,9 @@ export default function ServicesPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-xl md:text-2xl text-teal-100 mb-8"
+              className={`text-xl md:text-2xl ${
+                theme === "dark" ? "text-gray-200" : "text-teal-100"
+              } mb-8`}
             >
               Delivering end-to-end solutions for modern medical needs
             </motion.p>
@@ -91,7 +106,7 @@ export default function ServicesPage() {
       {/* Background pattern */}
       <VectorPattern
         type="grid"
-        opacity={0.4}
+        opacity={theme === "dark" ? 0.2 : 0.4}
         className="[background-size:40px_40px]"
       />
 
@@ -99,8 +114,10 @@ export default function ServicesPage() {
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-5xl font-bold text-center mb-12 text-teal-900"
+          viewport={{ once: true, amount: 0.5 }}
+          className={`text-5xl font-bold text-center mb-12 ${
+            theme === "dark" ? "text-teal-400" : "text-teal-900"
+          }`}
         >
           Our Services
         </motion.h1>
@@ -125,7 +142,11 @@ export default function ServicesPage() {
                 hidden: { y: 50, opacity: 0 },
                 visible: { y: 0, opacity: 1 },
               }}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+              className={`p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow ${
+                theme === "dark"
+                  ? "bg-gray-800 hover:bg-gray-700"
+                  : "bg-white hover:bg-gray-50"
+              }`}
               whileHover={{ scale: 1.02 }}
             >
               <motion.div
@@ -141,10 +162,18 @@ export default function ServicesPage() {
                 >
                   {service.icon}
                 </motion.div>
-                <h3 className="text-xl font-semibold mb-2 text-teal-900">
+                <h3
+                  className={`text-xl font-semibold mb-2 ${
+                    theme === "dark" ? "text-gray-100" : "text-teal-900"
+                  }`}
+                >
                   {service.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p
+                  className={`leading-relaxed ${
+                    theme === "dark" ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
                   {service.description}
                 </p>
               </motion.div>

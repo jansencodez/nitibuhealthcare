@@ -4,8 +4,12 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { VectorPattern } from "@/components/vector-patterns/ProductsAndServices";
 import { useRouter } from "next/navigation";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function ProductsPage() {
+  const { theme } = useTheme();
+  const router = useRouter();
+
   const phamaceutical = [
     {
       title: "Essential Medications",
@@ -56,10 +60,12 @@ export default function ProductsPage() {
     },
   ];
 
-  const router = useRouter();
-
   return (
-    <div className="min-h-screen bg-teal-50 bg-opacity-60 relative overflow-hidden">
+    <div
+      className={`min-h-screen relative overflow-hidden ${
+        theme === "dark" ? "bg-gray-900" : "bg-teal-50"
+      }`}
+    >
       {/* Hero Section */}
       <section className="relative h-[60vh]">
         <div className="absolute inset-0">
@@ -67,10 +73,18 @@ export default function ProductsPage() {
             src="/images/hero/products-hero.jpg"
             alt="Pharmaceutical Products"
             fill
-            className="object-cover"
+            className={`object-cover ${
+              theme === "dark" ? "brightness-75" : "brightness-100"
+            }`}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-900/70 to-teal-800/40" />
+          <div
+            className={`absolute inset-0 bg-gradient-to-r ${
+              theme === "dark"
+                ? "from-gray-900/80 to-gray-800/50"
+                : "from-teal-900/70 to-teal-800/40"
+            }`}
+          />
         </div>
 
         <div className="container mx-auto px-4 relative h-full flex items-center">
@@ -87,14 +101,20 @@ export default function ProductsPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-xl md:text-2xl text-teal-100 mb-8"
+              className={`text-xl md:text-2xl ${
+                theme === "dark" ? "text-gray-200" : "text-teal-100"
+              } mb-8`}
             >
               Discover our comprehensive range of healthcare solutions
             </motion.p>
             <motion.button
               whileHover={{ scale: 1.05 }}
               onClick={() => router.push("/catalog")}
-              className="px-8 py-4 bg-white text-teal-900 rounded-xl font-semibold text-lg shadow-lg"
+              className={`px-8 py-4 rounded-xl font-semibold text-lg shadow-lg ${
+                theme === "dark"
+                  ? "bg-teal-600 text-white hover:bg-teal-500"
+                  : "bg-white text-teal-900 hover:bg-teal-50"
+              }`}
             >
               Explore Catalog
             </motion.button>
@@ -105,22 +125,44 @@ export default function ProductsPage() {
       {/* Diagonal Stripe Pattern */}
       <VectorPattern
         type="diagonal"
-        opacity={0.4}
+        opacity={theme === "dark" ? 0.2 : 0.4}
         className="[background-size:40px_40px]"
       />
 
       <div className="container mx-auto px-4 py-20 relative">
-        {/* Pharmaceutical Products */}
+        {/* Pharmaceutical Products Section - Improved Animation */}
         <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }} // Increased trigger amount
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: {
+                type: "spring",
+                stiffness: 100,
+                damping: 20,
+                staggerChildren: 0.3, // Increased stagger delay
+              },
+            },
+          }}
           className="mb-16"
         >
           <motion.h2
-            initial={{ x: 30 }}
-            whileInView={{ x: 0 }}
-            className="text-3xl font-bold mb-8 text-teal-900"
+            initial={{ x: 50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            viewport={{ once: false, amount: 0.8 }}
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              damping: 10,
+              delay: 0.2,
+            }}
+            className={`text-3xl font-bold mb-8 ${
+              theme === "dark" ? "text-teal-400" : "text-teal-900"
+            }`}
           >
             Pharmaceutical Products
           </motion.h2>
@@ -129,15 +171,41 @@ export default function ProductsPage() {
             {phamaceutical.map((product, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+                variants={{
+                  hidden: { opacity: 0, y: 30, scale: 0.95 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: {
+                      type: "spring",
+                      stiffness: 150,
+                      damping: 15,
+                    },
+                  },
+                }}
+                whileHover={{
+                  y: -5,
+                  transition: { duration: 0.2 },
+                }}
+                className={`p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow ${
+                  theme === "dark"
+                    ? "bg-gray-800 hover:bg-gray-700"
+                    : "bg-white hover:bg-gray-50"
+                }`}
               >
-                <h3 className="text-xl font-semibold mb-2 text-teal-900">
+                <h3
+                  className={`text-xl font-semibold mb-2 ${
+                    theme === "dark" ? "text-gray-100" : "text-teal-900"
+                  }`}
+                >
                   {product.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p
+                  className={`leading-relaxed ${
+                    theme === "dark" ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
                   {product.description}
                 </p>
               </motion.div>
@@ -145,16 +213,37 @@ export default function ProductsPage() {
           </div>
         </motion.section>
 
-        {/* Non-Pharmaceutical Products */}
+        {/* Non-Pharmaceutical Products Section - Similar Improvements */}
         <motion.section
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: {
+                type: "spring",
+                stiffness: 100,
+                damping: 20,
+                staggerChildren: 0.3,
+              },
+            },
+          }}
         >
           <motion.h2
-            initial={{ x: 30 }}
-            whileInView={{ x: 0 }}
-            className="text-3xl font-bold mb-8 text-teal-900"
+            initial={{ x: 50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              damping: 10,
+              delay: 0.2,
+            }}
+            className={`text-3xl font-bold mb-8 ${
+              theme === "dark" ? "text-teal-400" : "text-teal-900"
+            }`}
           >
             Non-Pharmaceutical Products
           </motion.h2>
@@ -163,15 +252,41 @@ export default function ProductsPage() {
             {nonPhamaceutical.map((product, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+                variants={{
+                  hidden: { opacity: 0, y: 30, scale: 0.95 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    transition: {
+                      type: "spring",
+                      stiffness: 150,
+                      damping: 15,
+                    },
+                  },
+                }}
+                whileHover={{
+                  y: -5,
+                  transition: { duration: 0.2 },
+                }}
+                className={`p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow ${
+                  theme === "dark"
+                    ? "bg-gray-800 hover:bg-gray-700"
+                    : "bg-white hover:bg-gray-50"
+                }`}
               >
-                <h3 className="text-xl font-semibold mb-2 text-teal-900">
+                <h3
+                  className={`text-xl font-semibold mb-2 ${
+                    theme === "dark" ? "text-gray-100" : "text-teal-900"
+                  }`}
+                >
                   {product.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p
+                  className={`leading-relaxed ${
+                    theme === "dark" ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
                   {product.description}
                 </p>
               </motion.div>

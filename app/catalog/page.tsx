@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { FaSyringe, FaPrescriptionBottle, FaXmark } from "react-icons/fa6";
 import Image from "next/image";
 import formatProductName from "@/utils/formatProductName";
+import { useTheme } from "@/context/ThemeContext";
 
 // Categorized products
 const categorizedProducts = [
@@ -42,13 +43,19 @@ const categorizedProducts = [
 
 export default function CataloguePage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div
+      className={`min-h-screen py-12 px-4 sm:px-6 lg:px-8 ${
+        isDark ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
+      }`}
+    >
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-4xl font-bold text-gray-900 text-center mb-16"
+        className="text-4xl font-bold text-center mb-16"
       >
         Product Catalogue
       </motion.h1>
@@ -62,10 +69,14 @@ export default function CataloguePage() {
             transition={{ delay: sectionIndex * 0.1 }}
           >
             <div className="flex items-center gap-4 mb-12">
-              <div className="text-3xl text-teal-600">{section.icon}</div>
-              <h2 className="text-3xl font-bold text-gray-900">
-                {section.category}
-              </h2>
+              <div
+                className={`text-3xl ${
+                  isDark ? "text-teal-400" : "text-teal-600"
+                }`}
+              >
+                {section.icon}
+              </div>
+              <h2 className="text-3xl font-bold">{section.category}</h2>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -75,7 +86,9 @@ export default function CataloguePage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: productIndex * 0.05 }}
-                  className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer flex-1"
+                  className={`rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer flex-1 ${
+                    isDark ? "bg-gray-800" : "bg-white"
+                  }`}
                   onClick={() =>
                     setSelectedImage(`/images/products/${product}`)
                   }
@@ -96,7 +109,9 @@ export default function CataloguePage() {
                   {/* Product Details */}
                   <div className="p-4 border-t text-center">
                     <h3
-                      className="text-lg font-semibold text-gray-800"
+                      className={`text-lg font-semibold ${
+                        isDark ? "text-gray-200" : "text-gray-800"
+                      }`}
                       dangerouslySetInnerHTML={{
                         __html: formatProductName(product),
                       }}
@@ -122,12 +137,18 @@ export default function CataloguePage() {
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0.8 }}
-            className="relative bg-white p-4 rounded-lg shadow-lg max-w-3xl"
+            className={`relative p-4 rounded-lg shadow-lg max-w-3xl ${
+              isDark ? "bg-gray-800 text-white" : "bg-white text-black"
+            }`}
           >
             {/* Close Button */}
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute -top-4 -right-4 bg-teal-600 text-white rounded-full p-2 hover:bg-teal-700 transition-colors shadow-lg z-40"
+              className={`absolute -top-4 -right-4 rounded-full p-2 transition-colors shadow-lg z-40 ${
+                isDark
+                  ? "bg-teal-400 hover:bg-teal-500 text-gray-900"
+                  : "bg-teal-600 hover:bg-teal-700 text-white"
+              }`}
             >
               <FaXmark className="w-6 h-6" />
             </button>

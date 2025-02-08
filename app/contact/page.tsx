@@ -5,10 +5,40 @@ import { motion } from "framer-motion";
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { VectorPattern } from "@/components/vector-patterns/ProductsAndServices";
 import Image from "next/image";
+import { useTheme } from "@/context/ThemeContext";
 
 const ContactPage = () => {
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
+
+  // Dynamic styles
+  const bgColor = isDarkMode ? "bg-gray-900" : "bg-gray-50";
+  const cardBg = isDarkMode ? "bg-gray-800" : "bg-white";
+  // const textColor = isDarkMode ? "text-gray-100" : "text-gray-900";
+  const inputBg = isDarkMode
+    ? "bg-gray-700 border-gray-600 text-white"
+    : "bg-white border-gray-200 text-gray-900";
+  const buttonBg = isDarkMode
+    ? "bg-teal-500 hover:bg-teal-600"
+    : "bg-teal-600 hover:bg-teal-700";
+
+  const contactDetails = [
+    {
+      icon: <FaMapMarkerAlt className="w-6 h-6" />,
+      text: "AEA Plaza, Valley Rd, Nairobi",
+    },
+    {
+      icon: <FaPhone className="w-6 h-6" />,
+      text: "+254 712 345 678",
+    },
+    {
+      icon: <FaEnvelope className="w-6 h-6" />,
+      text: "contact@nitibuhealth.com",
+    },
+  ];
+
   return (
-    <section className="min-h-screen bg-gray-50 text-gray-900 relative overflow-hidden">
+    <section className={`min-h-screen ${bgColor} relative overflow-hidden`}>
       {/* Hero Section */}
       <div className="relative h-[50vh]">
         <div className="absolute inset-0">
@@ -16,10 +46,18 @@ const ContactPage = () => {
             src="/images/hero/contact-hero.jpg"
             alt="Contact Us"
             fill
-            className="object-cover"
+            className={`object-cover ${
+              isDarkMode ? "brightness-75" : "brightness-100"
+            }`}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-900/70 to-teal-800/40" />
+          <div
+            className={`absolute inset-0 bg-gradient-to-r ${
+              isDarkMode
+                ? "from-gray-900/80 to-gray-800/50"
+                : "from-teal-900/70 to-teal-800/40"
+            }`}
+          />
         </div>
 
         <div className="container mx-auto px-4 h-full flex items-center justify-center text-center relative z-10">
@@ -46,7 +84,7 @@ const ContactPage = () => {
       {/* Background Pattern */}
       <VectorPattern
         type="dots"
-        opacity={0.05}
+        opacity={isDarkMode ? 0.05 : 0.1}
         className="[background-size:40px_40px]"
       />
 
@@ -61,18 +99,23 @@ const ContactPage = () => {
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
-              transition: { staggerChildren: 0.2 },
+              transition: { staggerChildren: 0.2, delayChildren: 0.2 },
             },
           }}
         >
           {/* Contact Details */}
           <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
+            variants={{
+              hidden: { y: 50, opacity: 0 },
+              visible: { y: 0, opacity: 1 },
+            }}
             className="text-center md:text-left max-w-3xl"
           >
-            <h2 className="text-3xl font-bold text-teal-900 mb-6">
+            <h2
+              className={`text-3xl font-bold mb-6 ${
+                isDarkMode ? "text-teal-400" : "text-teal-900"
+              }`}
+            >
               Contact Information
             </h2>
 
@@ -86,31 +129,32 @@ const ContactPage = () => {
                 },
               }}
             >
-              {[
-                {
-                  icon: <FaMapMarkerAlt className="w-6 h-6" />,
-                  text: "AEA Plaza, Valley Rd, Nairobi",
-                },
-                {
-                  icon: <FaPhone className="w-6 h-6" />,
-                  text: "+254 712 345 678",
-                },
-                {
-                  icon: <FaEnvelope className="w-6 h-6" />,
-                  text: "contact@nitibuhealth.com",
-                },
-              ].map((item, index) => (
+              {contactDetails.map((item, index) => (
                 <motion.div
                   key={index}
                   variants={{
                     hidden: { x: -20, opacity: 0 },
                     visible: { x: 0, opacity: 1 },
                   }}
-                  className="flex items-center gap-4 p-4 bg-teal-50 rounded-lg"
+                  className={`flex items-center gap-4 p-4 rounded-lg transition-all ${
+                    isDarkMode
+                      ? "bg-gray-700 hover:bg-gray-600"
+                      : "bg-teal-50 hover:bg-teal-100"
+                  }`}
                   whileHover={{ x: 10 }}
                 >
-                  <span className="text-teal-600">{item.icon}</span>
-                  <span className="text-gray-700">{item.text}</span>
+                  <span
+                    className={`${
+                      isDarkMode ? "text-teal-400" : "text-teal-600"
+                    }`}
+                  >
+                    {item.icon}
+                  </span>
+                  <span
+                    className={isDarkMode ? "text-gray-200" : "text-gray-700"}
+                  >
+                    {item.text}
+                  </span>
                 </motion.div>
               ))}
             </motion.div>
@@ -122,9 +166,13 @@ const ContactPage = () => {
               hidden: { x: 50, opacity: 0 },
               visible: { x: 0, opacity: 1 },
             }}
-            className="bg-white shadow-xl rounded-2xl p-8"
+            className={`shadow-xl rounded-2xl p-8 ${cardBg}`}
           >
-            <h2 className="text-3xl font-bold text-teal-900 mb-6">
+            <h2
+              className={`text-3xl font-bold mb-6 ${
+                isDarkMode ? "text-teal-400" : "text-teal-900"
+              }`}
+            >
               Send Us a Message
             </h2>
 
@@ -149,14 +197,14 @@ const ContactPage = () => {
                   {field === "Message" ? (
                     <textarea
                       placeholder={`Your ${field}`}
-                      className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"
+                      className={`w-full p-4 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all ${inputBg}`}
                       rows={4}
                     />
                   ) : (
                     <input
                       type={field.toLowerCase()}
                       placeholder={`Your ${field}`}
-                      className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"
+                      className={`w-full p-4 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all ${inputBg}`}
                     />
                   )}
                 </motion.div>
@@ -170,7 +218,7 @@ const ContactPage = () => {
               >
                 <button
                   type="submit"
-                  className="w-full bg-teal-600 text-white p-4 rounded-xl font-semibold hover:bg-teal-700 transition-colors hover:shadow-lg"
+                  className={`w-full p-4 rounded-xl font-semibold transition-all hover:shadow-lg ${buttonBg} text-white`}
                 >
                   Send Message
                 </button>
@@ -184,7 +232,7 @@ const ContactPage = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-16 shadow-xl rounded-2xl overflow-hidden p-4"
+          className="mt-16 shadow-xl rounded-2xl overflow-hidden"
         >
           <GoogleMap />
         </motion.div>

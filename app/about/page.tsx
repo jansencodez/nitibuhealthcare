@@ -11,10 +11,12 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 import GoogleMapEastAfricaEmbed from "@/components/EastAfrica";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function AboutPage() {
+  const { theme } = useTheme();
   return (
-    <div className="bg-white">
+    <div className={`${theme === "dark" ? "bg-gray-900" : "bg-white"}`}>
       <HeroSection />
       <StorySection />
       <InitiativesSection />
@@ -26,6 +28,7 @@ export default function AboutPage() {
 }
 
 const HeroSection = () => {
+  const { theme } = useTheme();
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -38,9 +41,15 @@ const HeroSection = () => {
         alt="Medical background"
         fill
         style={{ objectFit: "cover" }}
-        className="absolute inset-0 z-0"
+        className={`absolute inset-0 z-0 ${
+          theme === "dark" ? "brightness-75" : ""
+        }`}
       />
-      <div className="absolute inset-0 bg-teal-900/80 z-0" />
+      <div
+        className={`absolute inset-0 z-0 ${
+          theme === "dark" ? "bg-gray-900/80" : "bg-teal-900/80"
+        }`}
+      />
       <div className="text-center text-white px-4 relative z-10">
         <motion.h1
           initial={{ y: 20 }}
@@ -62,6 +71,7 @@ const HeroSection = () => {
 };
 
 const StorySection = () => {
+  const { theme } = useTheme();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -71,7 +81,9 @@ const StorySection = () => {
         <motion.h2
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-3xl font-bold text-blue-900 mb-8"
+          className={`text-3xl font-bold ${
+            theme === "dark" ? "text-teal-400" : "text-blue-900"
+          } mb-8`}
         >
           Our Story
         </motion.h2>
@@ -98,10 +110,18 @@ const StorySection = () => {
             animate={isInView ? { x: 0, opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-2xl font-semibold text-blue-900 mb-4">
+            <h3
+              className={`text-2xl font-semibold ${
+                theme === "dark" ? "text-gray-100" : "text-blue-900"
+              } mb-4`}
+            >
               Today&apos;s Foundation
             </h3>
-            <p className="text-gray-600 leading-relaxed">
+            <p
+              className={`leading-relaxed ${
+                theme === "dark" ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
               Founded in Nairobi, Nitibu Healthcare ensures reliable access to
               high-quality pharmaceutical and non-pharmaceutical consumables
               across East and Central Africa, serving as the backbone for
@@ -115,6 +135,7 @@ const StorySection = () => {
 };
 
 const InitiativesSection = () => {
+  const { theme } = useTheme();
   const initiatives = [
     {
       icon: FaClinicMedical,
@@ -137,9 +158,17 @@ const InitiativesSection = () => {
   ];
 
   return (
-    <section className="bg-gray-50 py-16 px-4 md:px-8">
+    <section
+      className={`py-16 px-4 md:px-8 ${
+        theme === "dark" ? "bg-gray-800" : "bg-gray-50"
+      }`}
+    >
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-blue-900 mb-12 text-center">
+        <h2
+          className={`text-3xl font-bold text-center mb-12 ${
+            theme === "dark" ? "text-teal-400" : "text-blue-900"
+          }`}
+        >
           Pioneering Initiatives
         </h2>
 
@@ -151,17 +180,32 @@ const InitiativesSection = () => {
               whileInView={{ scale: 1, opacity: 1 }}
               transition={{ delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="bg-white p-8 rounded-xl shadow-lg"
+              className={`p-8 rounded-xl shadow-lg ${
+                theme === "dark" ? "bg-gray-700" : "bg-white"
+              }`}
             >
-              <div className="text-teal-500 text-4xl mb-4">
+              <div
+                className={`text-4xl mb-4 ${
+                  theme === "dark" ? "text-teal-400" : "text-teal-500"
+                }`}
+              >
                 <initiative.icon />
               </div>
-              <h3 className="text-xl font-semibold text-blue-900 mb-4">
+              <h3
+                className={`text-xl font-semibold mb-4 ${
+                  theme === "dark" ? "text-gray-100" : "text-blue-900"
+                }`}
+              >
                 {initiative.title}
               </h3>
               <ul className="space-y-2">
                 {initiative.items.map((item) => (
-                  <li key={item} className="flex items-center text-gray-600">
+                  <li
+                    key={item}
+                    className={`flex items-center ${
+                      theme === "dark" ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
                     <span className="mr-2">✓</span>
                     {item}
                   </li>
@@ -176,6 +220,7 @@ const InitiativesSection = () => {
 };
 
 const MissionVisionSection = () => {
+  const { theme } = useTheme();
   return (
     <section className="py-16 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
@@ -183,14 +228,26 @@ const MissionVisionSection = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="bg-gray-50 border-l-4 border-teal-500 p-8 rounded-lg"
+          className={`p-8 rounded-lg border-l-4 ${
+            theme === "dark"
+              ? "bg-gray-800 border-teal-400"
+              : "bg-gray-50 border-teal-500"
+          }`}
         >
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold text-blue-900 mb-4">
+              <h2
+                className={`text-2xl font-bold mb-4 ${
+                  theme === "dark" ? "text-gray-100" : "text-blue-900"
+                }`}
+              >
                 Our Mission
               </h2>
-              <p className="text-gray-600">
+              <p
+                className={`${
+                  theme === "dark" ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 To enhance healthcare delivery in East and Central Africa by
                 providing reliable access to high-quality medical products and
                 services, fostering innovation, and ensuring affordability for
@@ -198,10 +255,18 @@ const MissionVisionSection = () => {
               </p>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-blue-900 mb-4">
+              <h2
+                className={`text-2xl font-bold mb-4 ${
+                  theme === "dark" ? "text-gray-100" : "text-blue-900"
+                }`}
+              >
                 Our Vision
               </h2>
-              <p className="text-gray-600">
+              <p
+                className={`${
+                  theme === "dark" ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 To create an integrated healthcare network that transforms
                 medical care in emerging markets.
               </p>
@@ -214,6 +279,7 @@ const MissionVisionSection = () => {
 };
 
 const CoreValuesSection = () => {
+  const { theme } = useTheme();
   const values = [
     {
       icon: FaHandHoldingHeart,
@@ -238,9 +304,17 @@ const CoreValuesSection = () => {
   ];
 
   return (
-    <section className="py-16 px-4 md:px-8 bg-blue-50">
+    <section
+      className={`py-16 px-4 md:px-8 ${
+        theme === "dark" ? "bg-gray-800" : "bg-blue-50"
+      }`}
+    >
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-blue-900 mb-12 text-center">
+        <h2
+          className={`text-3xl font-bold text-center mb-12 ${
+            theme === "dark" ? "text-teal-400" : "text-blue-900"
+          }`}
+        >
           Core Values
         </h2>
 
@@ -252,14 +326,26 @@ const CoreValuesSection = () => {
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
+              className={`p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow ${
+                theme === "dark" ? "bg-gray-700" : "bg-white"
+              }`}
               whileHover={{ scale: 1.02 }}
             >
-              <div className="text-blue-900 text-3xl mb-4">
+              <div
+                className={`text-3xl mb-4 ${
+                  theme === "dark" ? "text-teal-400" : "text-blue-900"
+                }`}
+              >
                 <value.icon />
               </div>
               <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
-              <p className="text-gray-600">{value.description}</p>
+              <p
+                className={`${
+                  theme === "dark" ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
+                {value.description}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -269,8 +355,13 @@ const CoreValuesSection = () => {
 };
 
 const ReachSection = () => {
+  const { theme } = useTheme();
   return (
-    <section className="bg-teal-900 text-white py-16 px-4 md:px-8">
+    <section
+      className={`py-16 px-4 md:px-8 ${
+        theme === "dark" ? "bg-gray-900" : "bg-teal-900"
+      } text-white`}
+    >
       <div className="max-w-6xl mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0 }}

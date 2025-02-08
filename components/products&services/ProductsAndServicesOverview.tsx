@@ -1,12 +1,19 @@
+"use client";
+
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useTheme } from "@/context/ThemeContext";
 
 export default function ProductsAndServicesOverview() {
+  const { theme } = useTheme();
+
   return (
     <div className="max-w-7xl mx-auto text-center px-6">
       {/* Title */}
       <motion.h2
-        className="text-4xl font-bold text-gray-900"
+        className={`text-4xl font-bold ${
+          theme === "dark" ? "text-teal-400" : "text-teal-900"
+        }`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -16,7 +23,9 @@ export default function ProductsAndServicesOverview() {
 
       {/* Description */}
       <motion.p
-        className="mt-4 text-lg text-gray-700"
+        className={`mt-4 text-lg ${
+          theme === "dark" ? "text-gray-300" : "text-gray-700"
+        }`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.6 }}
@@ -36,7 +45,11 @@ export default function ProductsAndServicesOverview() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-6 py-3 text-lg font-semibold text-white bg-teal-600 hover:bg-teal-700 rounded-lg shadow-lg"
+            className={`px-6 py-3 text-lg font-semibold rounded-lg shadow-lg transition-colors ${
+              theme === "dark"
+                ? "bg-teal-700 hover:bg-teal-600 text-white"
+                : "bg-teal-600 hover:bg-teal-700 text-white"
+            }`}
           >
             Explore Products
           </motion.button>
@@ -46,7 +59,11 @@ export default function ProductsAndServicesOverview() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-6 py-3 text-lg font-semibold text-teal-600 border border-teal-600 hover:bg-teal-600 hover:text-white rounded-lg shadow-lg"
+            className={`px-6 py-3 text-lg font-semibold rounded-lg shadow-lg border transition-colors ${
+              theme === "dark"
+                ? "border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-gray-900"
+                : "border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
+            }`}
           >
             Explore Services
           </motion.button>

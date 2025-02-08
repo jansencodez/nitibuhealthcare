@@ -3,6 +3,7 @@ import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import { VectorPattern } from "@/components/vector-patterns/ProductsAndServices";
 import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Nitibu Healthcare",
@@ -10,9 +11,7 @@ export const metadata: Metadata = {
     "Nitibu Healthcare is a leading provider of pharmaceuticals, medical supplies, and health promotion services in the region.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={"antialiased"}>
@@ -30,3 +29,15 @@ export default function RootLayout({
     </html>
   );
 }
+
+const ThemedLayout = ({
+  children,
+}: Readonly<{ children: React.ReactNode }>) => {
+  return (
+    <ThemeProvider>
+      <RootLayout>{children}</RootLayout>
+    </ThemeProvider>
+  );
+};
+
+export default ThemedLayout;

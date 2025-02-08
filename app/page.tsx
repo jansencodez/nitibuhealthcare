@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useTheme } from "@/context/ThemeContext";
 import {
   FaPills,
   FaStethoscope,
@@ -10,6 +11,7 @@ import {
   FaUserMd,
   FaHospital,
   FaQuoteLeft,
+  
 } from "react-icons/fa";
 import AdvancedCarousel from "@/components/Carousel";
 import { HeroCarousel } from "@/components/hero/HeroComponents";
@@ -99,6 +101,9 @@ const testimonials = [
 export default function Home() {
   const [loading, setLoading] = useState(true);
 
+  const { theme } = useTheme();
+  const darkMode = theme === "dark" ? true : false;
+
   useEffect(() => {
     // Check if essential data is available
     if (products.length > 0) {
@@ -114,20 +119,26 @@ export default function Home() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-opacity-60"
+      className={`min-h-screen transition-colors duration-300 ${
+        darkMode ? "dark bg-gray-900" : "bg-white"
+      }`}
     >
+      
+
       <VectorPattern
         type="dots"
-        opacity={0.4}
+        opacity={darkMode ? 0.1 : 0.4}
         className="[background-size:40px_40px]"
       />
 
       {/* Hero Section */}
-      <HeroCarousel />
+      <HeroCarousel darkMode={darkMode} />
 
       {/* Products & Services Section */}
       <motion.section
-        className="py-20 bg-teal-50 bg-opacity-60"
+        className={`py-20 transition-colors duration-300 ${
+          darkMode ? "bg-gray-800" : "bg-teal-50"
+        }`}
         initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true, margin: "-100px" }}
@@ -143,7 +154,9 @@ export default function Home() {
 
       {/* Impact Section */}
       <motion.section
-        className="py-20 bg-teal-50"
+        className={`py-20 transition-colors duration-300 ${
+          darkMode ? "bg-gray-800" : "bg-teal-50"
+        }`}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -154,7 +167,9 @@ export default function Home() {
             initial={{ y: -20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.4 }}
-            className="text-3xl font-bold text-center mb-16 text-teal-900"
+            className={`text-3xl font-bold text-center mb-16 ${
+              darkMode ? "text-teal-400" : "text-teal-900"
+            }`}
           >
             Transforming Healthcare Delivery
           </motion.h2>
@@ -179,18 +194,30 @@ export default function Home() {
                   hidden: { y: 30, opacity: 0 },
                   visible: { y: 0, opacity: 1 },
                 }}
-                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
+                className={`p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all ${
+                  darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-white"
+                }`}
               >
                 <motion.div
-                  className="text-teal-600 mb-4"
+                  className={`mb-4 ${
+                    darkMode ? "text-teal-400" : "text-teal-600"
+                  }`}
                   whileHover={{ scale: 1.1 }}
                 >
                   <service.icon className="w-12 h-12" />
                 </motion.div>
-                <h3 className="text-xl font-semibold mb-3 text-teal-900">
+                <h3
+                  className={`text-xl font-semibold mb-3 ${
+                    darkMode ? "text-gray-100" : "text-teal-900"
+                  }`}
+                >
                   {service.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p
+                  className={`leading-relaxed ${
+                    darkMode ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
                   {service.description}
                 </p>
               </motion.div>
@@ -200,11 +227,13 @@ export default function Home() {
       </motion.section>
 
       {/* Why Choose Us Section */}
-      <WhyChooseUs />
+      <WhyChooseUs darkMode={darkMode} />
 
       {/* Testimonials Section */}
       <motion.section
-        className="py-20 bg-white"
+        className={`py-20 transition-colors duration-300 ${
+          darkMode ? "bg-gray-900" : "bg-white"
+        }`}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -231,17 +260,35 @@ export default function Home() {
                   hidden: { scale: 0.8, opacity: 0 },
                   visible: { scale: 1, opacity: 1 },
                 }}
-                className="text-center p-6 bg-teal-50 rounded-xl"
+                className={`text-center p-6 rounded-xl ${
+                  darkMode
+                    ? "bg-gray-800 shadow-gray-700"
+                    : "bg-teal-50 shadow-teal-100"
+                }`}
               >
                 <motion.div
-                  className="text-2xl font-bold text-teal-600 mb-4 w-fit"
+                  className={`text-2xl font-bold mb-4 w-fit mx-auto ${
+                    darkMode ? "text-teal-400" : "text-teal-600"
+                  }`}
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.5 }}
                 >
                   <FaQuoteLeft />
                 </motion.div>
-                <p className="text-gray-600 font-medium mb-4">{stat.message}</p>
-                <p className="font-semibold text-teal-800">- {stat.name}</p>
+                <p
+                  className={`font-medium mb-4 ${
+                    darkMode ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
+                  {stat.message}
+                </p>
+                <p
+                  className={`font-semibold ${
+                    darkMode ? "text-teal-400" : "text-teal-800"
+                  }`}
+                >
+                  - {stat.name}
+                </p>
               </motion.div>
             ))}
           </motion.div>
@@ -250,18 +297,20 @@ export default function Home() {
 
       {/* CTA Section */}
       <motion.section
-        className="relative py-32 bg-teal-900  text-white overflow-hidden"
+        className={`relative py-32 overflow-hidden transition-colors duration-300 ${
+          darkMode ? "bg-teal-950" : "bg-teal-900"
+        }`}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <div className="container mx-auto px-4 text-center relative ">
+        <div className="container mx-auto px-4 text-center relative">
           <motion.h2
             initial={{ y: -20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.4 }}
-            className="text-4xl font-bold mb-8"
+            className="text-4xl font-bold mb-8 text-white"
           >
             Partner in Healthcare Excellence
           </motion.h2>
@@ -270,7 +319,7 @@ export default function Home() {
             initial={{ x: -30, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.2 }}
-            className="text-xl mb-12 max-w-2xl mx-auto"
+            className="text-xl mb-12 max-w-2xl mx-auto text-gray-200"
           >
             Collaborate with us to enhance medical care infrastructure and
             accessibility
@@ -286,7 +335,13 @@ export default function Home() {
               delay: 0.4,
             }}
           >
-            <button className="px-10 py-5 bg-white text-teal-900 rounded-xl font-semibold text-lg hover:bg-teal-50 transition-colors shadow-xl hover:shadow-2xl">
+            <button
+              className={`px-10 py-5 rounded-xl font-semibold text-lg transition-colors shadow-xl hover:shadow-2xl ${
+                darkMode
+                  ? "bg-teal-800 text-white hover:bg-teal-700"
+                  : "bg-white text-teal-900 hover:bg-teal-50"
+              }`}
+            >
               Start Partnership
             </button>
           </motion.div>

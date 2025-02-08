@@ -33,8 +33,15 @@ const heroData = [
   },
 ];
 
-const HeroComponent = ({ hero }: { hero: (typeof heroData)[0] }) => {
+const HeroComponent = ({
+  hero,
+  darkMode,
+}: {
+  hero: (typeof heroData)[0];
+  darkMode: boolean;
+}) => {
   const controls = useAnimation();
+  const router = useRouter();
 
   useEffect(() => {
     controls.start({
@@ -44,7 +51,6 @@ const HeroComponent = ({ hero }: { hero: (typeof heroData)[0] }) => {
     });
   }, [controls]);
 
-  const router = useRouter();
   return (
     <motion.div
       className="relative flex items-center justify-center h-screen w-full"
@@ -57,11 +63,19 @@ const HeroComponent = ({ hero }: { hero: (typeof heroData)[0] }) => {
           src={hero.image}
           alt={hero.title}
           fill
-          className="object-cover brightness-105"
+          className={`object-cover transition-all duration-300 ${
+            darkMode ? "brightness-75" : "brightness-105"
+          }`}
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-teal-700/70 to-teal-600/40" />
+        <div
+          className={`absolute inset-0 bg-gradient-to-r transition-all duration-300 ${
+            darkMode
+              ? "from-teal-900/70 to-teal-800/40"
+              : "from-teal-700/70 to-teal-600/40"
+          }`}
+        />
       </div>
 
       {/* Content */}
@@ -75,7 +89,9 @@ const HeroComponent = ({ hero }: { hero: (typeof heroData)[0] }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight"
+          className={`text-4xl md:text-6xl font-bold mb-6 leading-tight ${
+            darkMode ? "text-gray-100" : "text-white"
+          }`}
         >
           {hero.title}
         </motion.h1>
@@ -84,7 +100,9 @@ const HeroComponent = ({ hero }: { hero: (typeof heroData)[0] }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="text-xl md:text-2xl mb-12 text-teal-100 max-w-2xl mx-auto"
+          className={`text-xl md:text-2xl mb-12 max-w-2xl mx-auto ${
+            darkMode ? "text-teal-200" : "text-teal-100"
+          }`}
         >
           {hero.subtitle}
         </motion.p>
@@ -100,7 +118,11 @@ const HeroComponent = ({ hero }: { hero: (typeof heroData)[0] }) => {
           }}
         >
           <button
-            className="px-8 py-4 bg-white text-teal-800 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 flex items-center gap-2 mx-auto hover:bg-teal-50"
+            className={`px-8 py-4 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-2 mx-auto ${
+              darkMode
+                ? "bg-teal-800 text-white hover:bg-teal-700"
+                : "bg-white text-teal-800 hover:bg-teal-50"
+            }`}
             onClick={() => router.push(hero.link)}
           >
             <span>{hero.buttonText}</span>
@@ -120,8 +142,13 @@ const HeroComponent = ({ hero }: { hero: (typeof heroData)[0] }) => {
           </button>
         </motion.div>
       </motion.div>
+
+      {/* Wave Divider */}
       <div className="absolute bottom-0 w-full">
-        <svg viewBox="0 0 1440 320" className="text-white w-full ">
+        <svg
+          viewBox="0 0 1440 320"
+          className={`w-full ${darkMode ? "text-gray-900" : "text-white"}`}
+        >
           <path
             fill="currentColor"
             fillOpacity="1"
@@ -133,7 +160,7 @@ const HeroComponent = ({ hero }: { hero: (typeof heroData)[0] }) => {
   );
 };
 
-export const HeroCarousel = () => {
+export const HeroCarousel = ({ darkMode }: { darkMode: boolean }) => {
   const [currentHero, setCurrentHero] = useState(0);
 
   useEffect(() => {
@@ -166,7 +193,7 @@ export const HeroCarousel = () => {
             ease: [0.16, 1, 0.3, 1],
           }}
         >
-          <HeroComponent hero={hero} />
+          <HeroComponent hero={hero} darkMode={darkMode} />
         </motion.div>
       ))}
     </div>
