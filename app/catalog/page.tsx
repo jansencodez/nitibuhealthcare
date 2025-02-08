@@ -77,15 +77,13 @@ export default function CataloguePage() {
                   transition={{ delay: productIndex * 0.05 }}
                   className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer flex-1"
                   onClick={() =>
-                    setSelectedImage(
-                      `/images/products/${product.toLowerCase()}`
-                    )
+                    setSelectedImage(`/images/products/${product}`)
                   }
                 >
                   {/* Image Container */}
                   <div className="relative w-full h-48">
                     <Image
-                      src={`/images/products/${product.toLowerCase()}`}
+                      src={`/images/products/${product}`}
                       alt={formatProductName(product)}
                       fill
                       sizes="100vw"
