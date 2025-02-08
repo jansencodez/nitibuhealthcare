@@ -119,13 +119,13 @@ const Footer = () => {
           </p>
           <div className="mt-2">
             <Link
-              href="#"
+              href="/privacy"
               className="hover:text-teal-300 transition-colors mx-2"
             >
               Privacy Policy
             </Link>
             <Link
-              href="#"
+              href="/terms"
               className="hover:text-teal-300 transition-colors mx-2"
             >
               Terms of Service

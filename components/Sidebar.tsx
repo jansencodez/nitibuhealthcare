@@ -28,7 +28,6 @@ const navItems = [
     href: "/products",
     icon: <HiInboxStack className="w-5 h-5" />,
   },
-  { name: "Contact", href: "/contact", icon: <HiMail className="w-5 h-5" /> },
   {
     name: "Engagement",
     href: "/engagement",
@@ -39,6 +38,7 @@ const navItems = [
     href: "/about",
     icon: <HiInformationCircle className="w-5 h-5" />,
   },
+  { name: "Contact", href: "/contact", icon: <HiMail className="w-5 h-5" /> },
 ];
 
 const Sidebar: FC = () => {
@@ -48,7 +48,7 @@ const Sidebar: FC = () => {
   return (
     <>
       {/* Sidebar for large screens */}
-      <aside className="hidden lg:flex fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-teal-700 to-teal-800 text-white shadow-xl p-6 flex-col ">
+      <aside className="hidden lg:flex fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-teal-700 to-teal-800 text-white shadow-xl p-6 flex-col border-r-2 border-r-white">
         {/* Logo Section */}
         <motion.div
           initial={{ opacity: 0 }}

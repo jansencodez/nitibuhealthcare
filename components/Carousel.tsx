@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
+import formatProductName from "@/utils/formatProductName";
 
 interface CarouselProps {
   images: string[];
@@ -62,8 +63,6 @@ const AdvancedCarousel: React.FC<CarouselProps> = ({
     }),
   };
 
-  const getCaption = (filename: string) => filename.replace(/\.[^/.]+$/, "");
-
   const getVisibleImages = () => {
     const visibleImages = [];
     for (let i = 0; i < visibleItems; i++) {
@@ -108,16 +107,19 @@ const AdvancedCarousel: React.FC<CarouselProps> = ({
               >
                 <Image
                   src={`/images/products/${image}`}
-                  alt={getCaption(image)}
+                  alt={formatProductName(image)}
                   fill
                   style={{ objectFit: "cover" }}
                   className="rounded-lg brightness-105"
                   priority
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4">
-                  <p className="text-white text-lg font-semibold">
-                    {getCaption(image)}
-                  </p>
+                  <p
+                    className="text-white text-lg font-semibold"
+                    dangerouslySetInnerHTML={{
+                      __html: formatProductName(image),
+                    }}
+                  />
                 </div>
               </motion.div>
             ))}
@@ -196,7 +198,7 @@ const AdvancedCarousel: React.FC<CarouselProps> = ({
               <div className="relative aspect-square md:aspect-video w-full">
                 <Image
                   src={`/images/products/${selectedImage}`}
-                  alt={getCaption(selectedImage)}
+                  alt={formatProductName(selectedImage)}
                   fill
                   style={{ objectFit: "contain" }}
                   className="rounded-t-xl"
@@ -206,9 +208,12 @@ const AdvancedCarousel: React.FC<CarouselProps> = ({
               </div>
 
               <div className="p-6 bg-gray-50 rounded-b-xl">
-                <p className="text-center text-xl font-semibold text-gray-800">
-                  {getCaption(selectedImage)}
-                </p>
+                <p
+                  className="text-center text-xl font-semibold text-gray-800"
+                  dangerouslySetInnerHTML={{
+                    __html: formatProductName(selectedImage),
+                  }}
+                />
               </div>
             </motion.div>
           </motion.div>

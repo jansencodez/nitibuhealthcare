@@ -2,6 +2,7 @@
 
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 const heroData = [
@@ -12,6 +13,7 @@ const heroData = [
       "Delivering comprehensive medical solutions across East & Central Africa",
     image: "/images/hero/test-tubes.jpg", // Replace with your image paths
     buttonText: "Explore Solutions",
+    link: "/services",
   },
   {
     id: 2,
@@ -19,6 +21,7 @@ const heroData = [
     subtitle: "Providing high-quality medical equipment and supplies",
     image: "/images/hero/intravenous-injection.jpg",
     buttonText: "View Products",
+    link: "/products",
   },
   {
     id: 3,
@@ -26,6 +29,7 @@ const heroData = [
     subtitle: "State-of-the-art facilities and expert medical teams",
     image: "/images/products/SYRINGE 20ML1.jpg",
     buttonText: "Learn More",
+    link: "/about",
   },
 ];
 
@@ -40,6 +44,7 @@ const HeroComponent = ({ hero }: { hero: (typeof heroData)[0] }) => {
     });
   }, [controls]);
 
+  const router = useRouter();
   return (
     <motion.div
       className="relative flex items-center justify-center h-screen w-full"
@@ -56,7 +61,7 @@ const HeroComponent = ({ hero }: { hero: (typeof heroData)[0] }) => {
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-teal-900/70 to-teal-800/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-teal-700/70 to-teal-600/40" />
       </div>
 
       {/* Content */}
@@ -94,7 +99,10 @@ const HeroComponent = ({ hero }: { hero: (typeof heroData)[0] }) => {
             delay: 0.8,
           }}
         >
-          <button className="px-8 py-4 bg-white text-teal-800 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 flex items-center gap-2 mx-auto hover:bg-teal-50">
+          <button
+            className="px-8 py-4 bg-white text-teal-800 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 flex items-center gap-2 mx-auto hover:bg-teal-50"
+            onClick={() => router.push(hero.link)}
+          >
             <span>{hero.buttonText}</span>
             <svg
               className="w-5 h-5"

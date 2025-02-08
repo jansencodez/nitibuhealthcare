@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   FaPills,
@@ -13,8 +14,9 @@ import {
 import AdvancedCarousel from "@/components/Carousel";
 import { HeroCarousel } from "@/components/hero/HeroComponents";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
-import { ProductsAndServicesOverview } from "@/components/products&services/ProductAndServices";
+import ProductsAndServicesOverview from "@/components/products&services/ProductsAndServicesOverview";
 import { VectorPattern } from "@/components/vector-patterns/ProductsAndServices";
+import GlobeLoader from "@/components/Loaders/GlobeLoader";
 
 const products = [
   "SYRINGE 5ML1.jpg",
@@ -95,11 +97,24 @@ const testimonials = [
 ];
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Check if essential data is available
+    if (products.length > 0) {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) {
+    return <GlobeLoader />;
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen"
+      className="min-h-screen bg-opacity-60"
     >
       <VectorPattern
         type="dots"
@@ -112,7 +127,7 @@ export default function Home() {
 
       {/* Products & Services Section */}
       <motion.section
-        className="py-20 bg-white"
+        className="py-20 bg-teal-50 bg-opacity-60"
         initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true, margin: "-100px" }}
@@ -219,7 +234,7 @@ export default function Home() {
                 className="text-center p-6 bg-teal-50 rounded-xl"
               >
                 <motion.div
-                  className="text-2xl font-bold text-teal-600 mb-4"
+                  className="text-2xl font-bold text-teal-600 mb-4 w-fit"
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.5 }}
                 >

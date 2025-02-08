@@ -36,8 +36,8 @@ const HeroSection = () => {
       <Image
         src="/images/hero/about-hero.jpg"
         alt="Medical background"
-        layout="fill"
-        objectFit="cover"
+        fill
+        style={{ objectFit: "cover" }}
         className="absolute inset-0 z-0"
       />
       <div className="absolute inset-0 bg-teal-900/80 z-0" />
@@ -88,7 +88,8 @@ const StorySection = () => {
               alt="Medical supplies"
               width={500}
               height={256}
-              className="w-full h-64 object-cover"
+              className="w-full h-auto object-cover"
+              priority
             />
           </motion.div>
 

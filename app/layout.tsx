@@ -1,19 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import { VectorPattern } from "@/components/vector-patterns/ProductsAndServices";
 import Footer from "@/components/Footer";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Nitibu Healthcare",
@@ -26,12 +15,14 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={"antialiased"}>
         <Sidebar />
-        <main className="flex-1 lg:ml-64">
-          <VectorPattern />
+        <main className="flex-1 lg:ml-64 bg-opacity-40 relative">
+          <VectorPattern
+            type="diagonal"
+            opacity={0.4}
+            className="[background-size:40px_40px]"
+          />
           {children}
           <Footer />
         </main>

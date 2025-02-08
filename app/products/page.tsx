@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { VectorPattern } from "@/components/vector-patterns/ProductsAndServices";
+import { useRouter } from "next/navigation";
 
 export default function ProductsPage() {
   const phamaceutical = [
@@ -55,6 +56,8 @@ export default function ProductsPage() {
     },
   ];
 
+  const router = useRouter();
+
   return (
     <div className="min-h-screen bg-teal-50 bg-opacity-60 relative overflow-hidden">
       {/* Hero Section */}
@@ -90,6 +93,7 @@ export default function ProductsPage() {
             </motion.p>
             <motion.button
               whileHover={{ scale: 1.05 }}
+              onClick={() => router.push("/catalog")}
               className="px-8 py-4 bg-white text-teal-900 rounded-xl font-semibold text-lg shadow-lg"
             >
               Explore Catalog
@@ -108,13 +112,13 @@ export default function ProductsPage() {
       <div className="container mx-auto px-4 py-20 relative">
         {/* Pharmaceutical Products */}
         <motion.section
-          className="mb-20"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}
+          className="mb-16"
         >
           <motion.h2
-            initial={{ x: -30 }}
+            initial={{ x: 30 }}
             whileInView={{ x: 0 }}
             className="text-3xl font-bold mb-8 text-teal-900"
           >
