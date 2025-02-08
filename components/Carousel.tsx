@@ -112,7 +112,7 @@ const AdvancedCarousel: React.FC<CarouselProps> = ({
                   fill
                   style={{ objectFit: "cover" }}
                   className="rounded-lg brightness-105"
-                  pro
+                  priority 
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4">
                   <p className="text-white text-lg font-semibold">
