@@ -203,7 +203,7 @@ const Sidebar: FC = () => {
                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${hoverBg} ${textColor}/80`}
                 >
                   {theme === "dark" ? (
-                    <FaSun className="w-5 h-5 text-white" />
+                    <FaSun className="w-5 h-5 text-yellow-400" />
                   ) : (
                     <FaMoon className="w-5 h-5 text-gray-400" />
                   )}

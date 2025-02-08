@@ -148,7 +148,6 @@ export default function HealthPromotionPage() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }} // Adjusted amount
           variants={containerVariants}
-          
         >
           {initiatives.map((initiative, index) => (
             <motion.div
