@@ -143,7 +143,7 @@ const responseMap = [
 
   {
     triggers: ["health promotion", "community event", "public awareness"],
-    response: `We organize community health events, focusing on:\n\t- Chronic disease prevention\n\t- Public health awareness\n- Free health checkups\nWould you like to participate or sponsor an event?`,
+    response: `We organize community health events, focusing on:\n\t- Chronic disease prevention\n\t- Public health awareness\n\t- Free health checkups\nWould you like to participate or sponsor an event?`,
   },
 
   {

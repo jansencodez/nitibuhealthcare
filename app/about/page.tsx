@@ -338,7 +338,13 @@ const CoreValuesSection = () => {
               >
                 <value.icon />
               </div>
-              <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
+              <h3
+                className={`text-xl font-semibold mb-2 ${
+                  theme === "dark" ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
+                {value.title}
+              </h3>
               <p
                 className={`${
                   theme === "dark" ? "text-gray-300" : "text-gray-600"
