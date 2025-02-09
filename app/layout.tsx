@@ -4,6 +4,7 @@ import Sidebar from "@/components/Sidebar";
 import { VectorPattern } from "@/components/vector-patterns/ProductsAndServices";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/context/ThemeContext";
+import ChatInterface from "@/components/chatbot/ChatInterface";
 
 export const metadata: Metadata = {
   title: "Nitibu Healthcare",
@@ -23,6 +24,7 @@ function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
             className="[background-size:40px_40px]"
           />
           {children}
+          <ChatInterface />
           <Footer />
         </main>
       </body>

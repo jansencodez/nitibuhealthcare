@@ -19,7 +19,7 @@ body {
   background: var(--background);
 }
 body {
-  @apply  font-sans;
+  @apply font-sans;
 }
 
 body:has(.modal-open) {
@@ -31,4 +31,24 @@ body:has(.modal-open) {
   background-size: cover;
   width: 100%;
   background-repeat: no-repeat;
+}
+
+@keyframes dot-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-dot-bounce-1 {
+  animation: dot-bounce 1s infinite;
+}
+.animate-dot-bounce-2 {
+  animation: dot-bounce 1s infinite 0.2s;
+}
+.animate-dot-bounce-3 {
+  animation: dot-bounce 1s infinite 0.4s;
 }
