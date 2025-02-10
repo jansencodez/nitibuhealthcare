@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
+import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -64,16 +64,14 @@ const HeroComponent = ({
           alt={hero.title}
           fill
           className={`object-cover transition-all duration-300 ${
-            darkMode ? "brightness-75" : "brightness-105"
+            darkMode ? "brightness-75" : ""
           }`}
           priority
           sizes="100vw"
         />
         <div
-          className={`absolute inset-0 bg-gradient-to-r transition-all duration-300 ${
-            darkMode
-              ? "from-teal-900/70 to-teal-800/40"
-              : "from-teal-700/70 to-teal-600/40"
+          className={`absolute inset-0 transition-all duration-300 ${
+            darkMode ? "bg-gray-900/80" : "bg-teal-800/20 "
           }`}
         />
       </div>
@@ -120,8 +118,8 @@ const HeroComponent = ({
           <button
             className={`px-8 py-4 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-2 mx-auto ${
               darkMode
-                ? "bg-teal-800 text-white hover:bg-teal-700"
-                : "bg-white text-teal-800 hover:bg-teal-50"
+                ? "bg-gray-900/80 text-white hover:bg-gray-700"
+                : "bg-white text-teal-900/80 hover:bg-teal-50"
             }`}
             onClick={() => router.push(hero.link)}
           >
@@ -161,11 +159,11 @@ const HeroComponent = ({
 };
 
 export const HeroCarousel = ({ darkMode }: { darkMode: boolean }) => {
-  const [currentHero, setCurrentHero] = useState(0);
+  const [[currentHero, direction], setCurrentHero] = useState([0, 0]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentHero((prev) => (prev + 1) % heroData.length);
+      setCurrentHero(([prev]) => [(prev + 1) % heroData.length, 1]);
     }, 10000);
 
     return () => clearInterval(interval);
@@ -173,29 +171,31 @@ export const HeroCarousel = ({ darkMode }: { darkMode: boolean }) => {
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
-      {heroData.map((hero, index) => (
+      <AnimatePresence initial={false} custom={direction}>
         <motion.div
-          key={hero.id}
+          key={currentHero}
+          custom={direction}
           className="absolute inset-0"
           initial={{
             opacity: 0,
             clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
           }}
           animate={{
-            opacity: index === currentHero ? 1 : 0,
-            clipPath:
-              index === currentHero
-                ? "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
-                : "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
+            opacity: 1,
+            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+          }}
+          exit={{
+            opacity: 0,
+            clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)",
           }}
           transition={{
-            duration: 1.5,
-            ease: [0.16, 1, 0.3, 1],
+            duration: 1.2,
+            ease: [0.33, 1, 0.68, 1],
           }}
         >
-          <HeroComponent hero={hero} darkMode={darkMode} />
+          <HeroComponent hero={heroData[currentHero]} darkMode={darkMode} />
         </motion.div>
-      ))}
+      </AnimatePresence>
     </div>
   );
 };
