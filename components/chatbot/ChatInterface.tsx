@@ -39,6 +39,7 @@ const ChatInterface = () => {
     if (isProcessing.current || responseQueue.current.length === 0) return;
 
     isProcessing.current = true;
+    setIsTyping(true); // Show typing indicator when processing starts
     const { text, id } = responseQueue.current.shift()!;
 
     let displayedText = "";
@@ -53,6 +54,7 @@ const ChatInterface = () => {
     }
 
     isProcessing.current = false;
+    setIsTyping(false); // Hide typing indicator when done
     processQueue();
   };
 
@@ -69,7 +71,6 @@ const ChatInterface = () => {
     setInputText("");
 
     try {
-      setIsTyping(true);
       const response = await getBotResponse(userInput);
       const botMessageId = currentMessageId.current++;
 
@@ -79,7 +80,7 @@ const ChatInterface = () => {
       ]);
 
       responseQueue.current.push({ text: response, id: botMessageId });
-      processQueue();
+      processQueue(); // Start processing without setting isTyping here
     } catch (error: unknown) {
       if (error instanceof Error)
         setMessages((prev) => [
@@ -90,8 +91,6 @@ const ChatInterface = () => {
             id: currentMessageId.current++,
           },
         ]);
-    } finally {
-      setIsTyping(false);
     }
   };
 
@@ -192,15 +191,22 @@ const ChatInterface = () => {
                 <div className="flex justify-start">
                   <div
                     className={`max-w-[80%] p-3 rounded-lg ${
-                      theme === "dark" ? "bg-gray-700" : "bg-gray-100"
+                      theme === "dark"
+                        ? "bg-gray-700 text-white"
+                        : "bg-gray-100 text-gray-800"
                     }`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-sm">Niti is typing</span>
                       <div className="flex gap-1.5">
-                        <div className="w-2 h-2 bg-current rounded-full animate-dot-bounce-1" />
-                        <div className="w-2 h-2 bg-current rounded-full animate-dot-bounce-2" />
-                        <div className="w-2 h-2 bg-current rounded-full animate-dot-bounce-3" />
+                        {[1, 2, 3].map((dot) => (
+                          <span
+                            key={dot}
+                            className={`w-2 h-2 rounded-full ${
+                              theme === "dark" ? "bg-gray-300" : "bg-gray-600"
+                            } animate-dot-bounce-${dot}`}
+                          />
+                        ))}
                       </div>
                     </div>
                   </div>
