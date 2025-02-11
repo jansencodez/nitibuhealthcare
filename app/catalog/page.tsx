@@ -5,8 +5,6 @@ import { AnimatePresence } from "framer-motion";
 import { FaSyringe, FaPrescriptionBottle } from "react-icons/fa";
 import { useTheme } from "@/context/ThemeContext";
 
-// Components
-import SearchBar from "@/components/catalog/SearchBar";
 import ProductGridSection from "@/components/catalog/ProductGridSection";
 import ProductCarousel from "@/components/catalog/ProductCarousel";
 import ProductModal from "@/components/catalog/ProductModal";
@@ -17,11 +15,12 @@ import {
   nonPharmaceuticalProducts,
   allProducts,
 } from "@/data/products";
-import  Product  from "@/types/Product";
+import Product from "@/types/Product";
+import { useSearch } from "@/context/SearchContext";
 
 export default function CataloguePage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const { searchQuery } = useSearch();
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
@@ -29,13 +28,11 @@ export default function CataloguePage() {
   const suggestedProducts = allProducts.slice(0, 10);
 
   // Filter products
-  const filteredNonPharma = nonPharmaceuticalProducts.filter(
-    (p: Product) =>
-      p.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredNonPharma = nonPharmaceuticalProducts.filter((p: Product) =>
+    p.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  const filteredPharma = pharmaceuticalProducts.filter(
-    (p: Product) =>
-      p.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredPharma = pharmaceuticalProducts.filter((p: Product) =>
+    p.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Grid classes
@@ -44,11 +41,11 @@ export default function CataloguePage() {
 
   return (
     <div
-      className={`min-h-screen ${isDark ? "bg-gray-900" : "bg-gray-50"} p-2 md:p-8 mt-16 lg:mt-0`}
+      className={`min-h-screen ${
+        isDark ? "bg-gray-900" : "bg-gray-50"
+      }  md:p-8 pt-16 lg:mt-0`}
     >
       <div className="max-w-7xl mx-auto">
-        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-
         <ProductCarousel
           title="Suggested Products"
           products={suggestedProducts}

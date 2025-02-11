@@ -221,6 +221,36 @@ const InitiativesSection = () => {
 
 const MissionVisionSection = () => {
   const { theme } = useTheme();
+
+  // Animation variants for typing effect
+  const typingVariants = {
+    hidden: { opacity: 0 },
+    visible: (i: number) => ({
+      opacity: 1,
+      transition: {
+        delay: i * 0.05, // Staggered delay based on character index
+        duration: 0.1,
+      },
+    }),
+  };
+
+  // Split text into characters for animation
+  const renderAnimatedText = (text: string) => {
+    return text.split("").map((char, index) => (
+      <motion.span
+        key={index}
+        custom={index}
+        variants={typingVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-20% 0px -20% 0px" }}
+        className="inline-block"
+      >
+        {char === " " ? "\u00A0" : char}
+      </motion.span>
+    ));
+  };
+
   return (
     <section className="py-16 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
@@ -243,16 +273,25 @@ const MissionVisionSection = () => {
               >
                 Our Mission
               </h2>
-              <p
+              <motion.p
                 className={`${
                   theme === "dark" ? "text-gray-300" : "text-gray-600"
                 }`}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={{
+                  visible: {
+                    transition: { staggerChildren: 0.05 },
+                  },
+                }}
               >
-                To enhance healthcare delivery in East and Central Africa by
-                providing reliable access to high-quality medical products and
-                services, fostering innovation, and ensuring affordability for
-                all.
-              </p>
+                {renderAnimatedText(
+                  "To enhance healthcare delivery in East and Central Africa by " +
+                    "providing reliable access to high-quality medical products and " +
+                    "services, fostering innovation, and ensuring affordability for all."
+                )}
+              </motion.p>
             </div>
             <div>
               <h2
@@ -262,14 +301,24 @@ const MissionVisionSection = () => {
               >
                 Our Vision
               </h2>
-              <p
+              <motion.p
                 className={`${
                   theme === "dark" ? "text-gray-300" : "text-gray-600"
                 }`}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={{
+                  visible: {
+                    transition: { staggerChildren: 0.05 },
+                  },
+                }}
               >
-                To create an integrated healthcare network that transforms
-                medical care in emerging markets.
-              </p>
+                {renderAnimatedText(
+                  "To create an integrated healthcare network that transforms " +
+                    "medical care in emerging markets."
+                )}
+              </motion.p>
             </div>
           </div>
         </motion.div>
