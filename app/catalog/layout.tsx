@@ -24,14 +24,14 @@ export default function CatalogLayout({ children }: CatalogLayoutProps) {
         <div className="flex flex-col min-h-screen">
           <main className="flex-1">
             {/* Changed top value and added margin-top */}
-            <section className="sticky top-14 z-40 mt-16 bg-gradient-to-b from-green-800/30 to-transparent backdrop-blur-sm rounded-b-xl">
+            <section className="sticky top-14 lg:top-0 z-40 mt-16 lg:mt-0 bg-gradient-to-b from-green-800/30 to-transparent backdrop-blur-sm rounded-b-xl">
               <div className="max-w-7xl mx-auto px-4 md:px-8 py-2">
                 <SearchBar />
               </div>
             </section>
 
             {/* Added margin-top to account for header */}
-            <div className="max-w-7xl mx-auto px-4 md:px-8 pb-8 mt-4">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 pb-8 mt-4 ">
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

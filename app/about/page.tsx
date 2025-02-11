@@ -222,16 +222,25 @@ const InitiativesSection = () => {
 const MissionVisionSection = () => {
   const { theme } = useTheme();
 
-  // Animation variants for typing effect
-  const typingVariants = {
+  // Animation variants
+  const containerVariants = {
     hidden: { opacity: 0 },
-    visible: (i: number) => ({
+    visible: {
       opacity: 1,
       transition: {
-        delay: i * 0.05, // Staggered delay based on character index
-        duration: 0.1,
+        staggerChildren: 0.05,
+        when: "beforeChildren",
       },
-    }),
+    },
+  };
+
+  const characterVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.1 },
+    },
   };
 
   // Split text into characters for animation
@@ -239,12 +248,9 @@ const MissionVisionSection = () => {
     return text.split("").map((char, index) => (
       <motion.span
         key={index}
-        custom={index}
-        variants={typingVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-20% 0px -20% 0px" }}
+        variants={characterVariants}
         className="inline-block"
+        custom={index}
       >
         {char === " " ? "\u00A0" : char}
       </motion.span>
@@ -255,9 +261,10 @@ const MissionVisionSection = () => {
     <section className="py-16 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+          variants={containerVariants}
           className={`p-8 rounded-lg border-l-4 ${
             theme === "dark"
               ? "bg-gray-800 border-teal-400"
@@ -265,7 +272,9 @@ const MissionVisionSection = () => {
           }`}
         >
           <div className="space-y-6">
-            <div>
+            <motion.div variants={{}}>
+              {" "}
+              {/* Empty variants for child */}
               <h2
                 className={`text-2xl font-bold mb-4 ${
                   theme === "dark" ? "text-gray-100" : "text-blue-900"
@@ -277,14 +286,7 @@ const MissionVisionSection = () => {
                 className={`${
                   theme === "dark" ? "text-gray-300" : "text-gray-600"
                 }`}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={{
-                  visible: {
-                    transition: { staggerChildren: 0.05 },
-                  },
-                }}
+                variants={containerVariants}
               >
                 {renderAnimatedText(
                   "To enhance healthcare delivery in East and Central Africa by " +
@@ -292,8 +294,11 @@ const MissionVisionSection = () => {
                     "services, fostering innovation, and ensuring affordability for all."
                 )}
               </motion.p>
-            </div>
-            <div>
+            </motion.div>
+
+            <motion.div variants={{}}>
+              {" "}
+              {/* Empty variants for child */}
               <h2
                 className={`text-2xl font-bold mb-4 ${
                   theme === "dark" ? "text-gray-100" : "text-blue-900"
@@ -305,21 +310,14 @@ const MissionVisionSection = () => {
                 className={`${
                   theme === "dark" ? "text-gray-300" : "text-gray-600"
                 }`}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={{
-                  visible: {
-                    transition: { staggerChildren: 0.05 },
-                  },
-                }}
+                variants={containerVariants}
               >
                 {renderAnimatedText(
                   "To create an integrated healthcare network that transforms " +
                     "medical care in emerging markets."
                 )}
               </motion.p>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
