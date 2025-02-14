@@ -15,13 +15,13 @@ export const metadata: Metadata = {
 function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={"antialiased"}>
+      <body className={"antialiased bg-teal-100"}>
         <Sidebar />
-        <main className="flex-1 lg:ml-64 bg-opacity-40 relative">
+        <main className="flex-1 lg:ml-[266px] relative lg:mr-[10px] ">
           <VectorPattern
             type="diagonal"
             opacity={0.4}
-            className="[background-size:40px_40px]"
+            className="[background-size:40px_40px] inset-1"
           />
           {children}
           <ChatInterface />

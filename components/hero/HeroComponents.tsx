@@ -87,7 +87,7 @@ const HeroComponent = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className={`text-4xl md:text-6xl font-bold mb-6 leading-tight ${
+          className={`text-4xl font-bold mb-6 leading-tight ${
             darkMode ? "text-gray-100" : "text-white"
           }`}
         >
@@ -98,7 +98,7 @@ const HeroComponent = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className={`text-xl md:text-2xl mb-12 max-w-2xl mx-auto ${
+          className={`text-xl  mb-12 max-w-2xl mx-auto ${
             darkMode ? "text-teal-200" : "text-teal-100"
           }`}
         >
@@ -116,7 +116,7 @@ const HeroComponent = ({
           }}
         >
           <button
-            className={`px-8 py-4 rounded-xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-2 mx-auto ${
+            className={`px-8 py-4 rounded-xl font-semibold text-sm shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-2 mx-auto ${
               darkMode
                 ? "bg-gray-900/80 text-white hover:bg-gray-700"
                 : "bg-white text-teal-900/80 hover:bg-teal-50"

@@ -12,10 +12,10 @@ const Footer = () => {
     <footer
       className={`transition-colors duration-300 ${
         theme === "dark" ? "bg-gray-900" : "bg-teal-900"
-      }`}
+      } pr-8 pl-8`}
     >
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Company Info */}
           <div className="space-y-4">
             <h3
@@ -107,11 +107,11 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <MdPhone className="flex-shrink-0" />
-                <span>+254 712 345 678</span>
+                <span>+254 794 653 649 / +254 758 100 700</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MdEmail className="flex-shrink-0" />
-                <span>info@nitibuhealthcare.com</span>
+                <span>nitibu.kenya@gmail.com</span>
               </div>
             </div>
           </div>

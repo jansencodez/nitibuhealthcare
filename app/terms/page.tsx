@@ -257,9 +257,9 @@ export default function TermsPage() {
               >
                 <span className="font-semibold">Sales & Support:</span>
                 <br />
-                Email: sales@nitibuhealth.co.ke
+                Email: nitibu.kenya@gmail.com
                 <br />
-                Phone: +254 700 000 001
+                Phone: +254 794 653 649 / +254 758 100 700
               </p>
             </div>
             <div>
@@ -270,9 +270,9 @@ export default function TermsPage() {
               >
                 <span className="font-semibold">Legal Department:</span>
                 <br />
-                Email: legal@nitibuhealth.co.ke
+                Email: nitibu.kenya@gmail.com
                 <br />
-                Phone: +254 700 000 002
+                Phone: +254 758 100 700 / +254 758 100 700
               </p>
             </div>
           </div>

@@ -281,13 +281,13 @@ export default function PrivacyPage() {
                   theme === "dark" ? "text-gray-400" : "text-gray-600"
                 }`}
               >
-                <span className="font-semibold">Data Protection Officer:</span>
+                {/* <span className="font-semibold">Data Protection Officer:</span>
                 <br />
                 Ms. Wanjiku Mwangi
+                <br /> */}
+                Email: nitibu.kenya@gmail.com
                 <br />
-                Email: dpo@nitibuhealth.co.ke
-                <br />
-                Phone: +254 700 000 000
+                Phone: +254 794 653 649
               </p>
             </div>
             <div>
@@ -298,11 +298,11 @@ export default function PrivacyPage() {
               >
                 <span className="font-semibold">Physical Address:</span>
                 <br />
-                Nitibu Healthcare Headquarters
+                Nain Group,Nitibu Healthcare
                 <br />
-                ABC Place, 5th Floor
+                AEA Plaza, 5th floor
                 <br />
-                Waiyaki Way, Nairobi, Kenya
+                Valley Rd, Nairobi, Kenya
               </p>
             </div>
           </div>

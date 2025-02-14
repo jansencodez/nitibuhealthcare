@@ -29,11 +29,11 @@ const ContactPage = () => {
     },
     {
       icon: <FaPhone className="w-6 h-6" />,
-      text: "+254 712 345 678",
+      text: "+254 758 100 700 / +254 794 653 649",
     },
     {
       icon: <FaEnvelope className="w-6 h-6" />,
-      text: "contact@nitibuhealth.com",
+      text: "nitibu.kenya@gmail.com",
     },
   ];
 

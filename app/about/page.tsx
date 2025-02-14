@@ -115,14 +115,14 @@ const StorySection = () => {
                 theme === "dark" ? "text-gray-100" : "text-blue-900"
               } mb-4`}
             >
-              Today&apos;s Foundation
+              Nitibu Healthcare
             </h3>
             <p
               className={`leading-relaxed ${
                 theme === "dark" ? "text-gray-300" : "text-gray-600"
               }`}
             >
-              Founded in Nairobi, Nitibu Healthcare ensures reliable access to
+              Founded by <strong>Isaac Mulindi</strong>, Nitibu Healthcare ensures reliable access to
               high-quality pharmaceutical and non-pharmaceutical consumables
               across East and Central Africa, serving as the backbone for
               hundreds of healthcare facilities.

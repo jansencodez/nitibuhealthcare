@@ -11,7 +11,6 @@ import {
   FaUserMd,
   FaHospital,
   FaQuoteLeft,
-  
 } from "react-icons/fa";
 import AdvancedCarousel from "@/components/Carousel";
 import { HeroCarousel } from "@/components/hero/HeroComponents";
@@ -19,6 +18,7 @@ import { WhyChooseUs } from "@/components/WhyChooseUs";
 import ProductsAndServicesOverview from "@/components/products&services/ProductsAndServicesOverview";
 import { VectorPattern } from "@/components/vector-patterns/ProductsAndServices";
 import GlobeLoader from "@/components/Loaders/GlobeLoader";
+import EmailModal from "@/components/PartnershipForm";
 
 const products = [
   "SYRINGE 5ML1.jpg",
@@ -100,12 +100,13 @@ const testimonials = [
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
-
   const { theme } = useTheme();
-  const darkMode = theme === "dark" ? true : false;
+  const darkMode = theme === "dark";
+
+  // Modal and email state
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    // Check if essential data is available
     if (products.length > 0) {
       setLoading(false);
     }
@@ -116,237 +117,235 @@ export default function Home() {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className={`min-h-screen transition-colors duration-300 ${
-        darkMode ? "dark bg-gray-900" : "bg-white"
-      }`}
-    >
-      
-
-      <VectorPattern
-        type="dots"
-        opacity={darkMode ? 0.1 : 0.4}
-        className="[background-size:40px_40px]"
-      />
-
-      {/* Hero Section */}
-      <HeroCarousel darkMode={darkMode} />
-
-      {/* Products & Services Section */}
-      <motion.section
-        className={`py-20 transition-colors duration-300 ${
-          darkMode ? "bg-gray-800" : "bg-teal-50"
+    <>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className={`min-h-screen transition-colors duration-300 ${
+          darkMode ? "dark bg-gray-900" : "bg-white"
         }`}
-        initial={{ y: 50, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
       >
-        <ProductsAndServicesOverview />
-        <AdvancedCarousel
-          images={products}
-          autoPlayInterval={4000}
-          visibleItems={3}
+        <VectorPattern
+          type="dots"
+          opacity={darkMode ? 0.1 : 0.4}
+          className="[background-size:40px_40px]"
         />
-      </motion.section>
 
-      {/* Impact Section */}
-      <motion.section
-        className={`py-20 transition-colors duration-300 ${
-          darkMode ? "bg-gray-800" : "bg-teal-50"
-        }`}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="container mx-auto px-4">
-          <motion.h2
-            initial={{ y: -20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            className={`text-3xl font-bold text-center mb-16 ${
-              darkMode ? "text-teal-400" : "text-teal-900"
-            }`}
-          >
-            Transforming Healthcare Delivery
-          </motion.h2>
+        {/* Hero Section */}
+        <HeroCarousel darkMode={darkMode} />
 
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: { staggerChildren: 0.2 },
-              },
-            }}
-          >
-            {impacts.slice(0, 4).map((service, index) => (
-              <motion.div
-                key={index}
-                variants={{
-                  hidden: { y: 30, opacity: 0 },
-                  visible: { y: 0, opacity: 1 },
-                }}
-                className={`p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all ${
-                  darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-white"
-                }`}
-              >
-                <motion.div
-                  className={`mb-4 ${
-                    darkMode ? "text-teal-400" : "text-teal-600"
-                  }`}
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <service.icon className="w-12 h-12" />
-                </motion.div>
-                <h3
-                  className={`text-xl font-semibold mb-3 ${
-                    darkMode ? "text-gray-100" : "text-teal-900"
-                  }`}
-                >
-                  {service.title}
-                </h3>
-                <p
-                  className={`leading-relaxed ${
-                    darkMode ? "text-gray-300" : "text-gray-600"
-                  }`}
-                >
-                  {service.description}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.section>
+        {/* Products & Services Section */}
+        <motion.section
+          className={`py-20 transition-colors duration-300 ${
+            darkMode ? "bg-gray-800" : "bg-teal-50"
+          }`}
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+        >
+          <ProductsAndServicesOverview />
+          <AdvancedCarousel
+            images={products}
+            autoPlayInterval={4000}
+            visibleItems={3}
+          />
+        </motion.section>
 
-      {/* Why Choose Us Section */}
-      <WhyChooseUs darkMode={darkMode} />
-
-      {/* Testimonials Section */}
-      <motion.section
-        className={`py-20 transition-colors duration-300 ${
-          darkMode ? "bg-gray-900" : "bg-white"
-        }`}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="container mx-auto px-4">
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: { staggerChildren: 0.2 },
-              },
-            }}
-          >
-            {testimonials.map((stat, index) => (
-              <motion.div
-                key={index}
-                variants={{
-                  hidden: { scale: 0.8, opacity: 0 },
-                  visible: { scale: 1, opacity: 1 },
-                }}
-                className={`text-center p-6 rounded-xl ${
-                  darkMode
-                    ? "bg-gray-800 shadow-gray-700"
-                    : "bg-teal-50 shadow-teal-100"
-                }`}
-              >
-                <motion.div
-                  className={`text-2xl font-bold mb-4 w-fit mx-auto ${
-                    darkMode ? "text-teal-400" : "text-teal-600"
-                  }`}
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <FaQuoteLeft />
-                </motion.div>
-                <p
-                  className={`font-medium mb-4 ${
-                    darkMode ? "text-gray-300" : "text-gray-600"
-                  }`}
-                >
-                  {stat.message}
-                </p>
-                <p
-                  className={`font-semibold ${
-                    darkMode ? "text-teal-400" : "text-teal-800"
-                  }`}
-                >
-                  - {stat.name}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* CTA Section */}
-      <motion.section
-        className={`relative py-32 overflow-hidden transition-colors duration-300 ${
-          darkMode ? "bg-teal-950" : "bg-teal-900"
-        }`}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="container mx-auto px-4 text-center relative">
-          <motion.h2
-            initial={{ y: -20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            className="text-4xl font-bold mb-8 text-white"
-          >
-            Partner in Healthcare Excellence
-          </motion.h2>
-
-          <motion.p
-            initial={{ x: -30, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-            className="text-xl mb-12 max-w-2xl mx-auto text-gray-200"
-          >
-            Collaborate with us to enhance medical care infrastructure and
-            accessibility
-          </motion.p>
-
-          <motion.div
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            transition={{
-              type: "spring",
-              stiffness: 260,
-              damping: 20,
-              delay: 0.4,
-            }}
-          >
-            <button
-              className={`px-10 py-5 rounded-xl font-semibold text-lg transition-colors shadow-xl hover:shadow-2xl ${
-                darkMode
-                  ? "bg-teal-800 text-white hover:bg-teal-700"
-                  : "bg-white text-teal-900 hover:bg-teal-50"
+        {/* Impact Section */}
+        <motion.section
+          className={`py-20 transition-colors duration-300 ${
+            darkMode ? "bg-gray-800" : "bg-teal-50"
+          }`}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="container mx-auto px-4">
+            <motion.h2
+              initial={{ y: -20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.4 }}
+              className={`text-3xl font-bold text-center mb-16 ${
+                darkMode ? "text-teal-400" : "text-teal-900"
               }`}
             >
-              Start Partnership
-            </button>
-          </motion.div>
-        </div>
-      </motion.section>
-    </motion.div>
+              Transforming Healthcare Delivery
+            </motion.h2>
+
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+              }}
+            >
+              {impacts.slice(0, 4).map((service, index) => (
+                <motion.div
+                  key={index}
+                  variants={{
+                    hidden: { y: 30, opacity: 0 },
+                    visible: { y: 0, opacity: 1 },
+                  }}
+                  className={`p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all ${
+                    darkMode ? "bg-gray-700 hover:bg-gray-600" : "bg-white"
+                  }`}
+                >
+                  <motion.div
+                    className={`mb-4 ${
+                      darkMode ? "text-teal-400" : "text-teal-600"
+                    }`}
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <service.icon className="w-12 h-12" />
+                  </motion.div>
+                  <h3
+                    className={`text-xl font-semibold mb-3 ${
+                      darkMode ? "text-gray-100" : "text-teal-900"
+                    }`}
+                  >
+                    {service.title}
+                  </h3>
+                  <p
+                    className={`leading-relaxed ${
+                      darkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
+                    {service.description}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* Why Choose Us Section */}
+        <WhyChooseUs darkMode={darkMode} />
+
+        {/* Testimonials Section */}
+        <motion.section
+          className={`py-20 transition-colors duration-300 ${
+            darkMode ? "bg-gray-900" : "bg-white"
+          }`}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="container mx-auto px-4">
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-3 gap-8"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+              }}
+            >
+              {testimonials.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  variants={{
+                    hidden: { scale: 0.8, opacity: 0 },
+                    visible: { scale: 1, opacity: 1 },
+                  }}
+                  className={`text-center p-6 rounded-xl ${
+                    darkMode
+                      ? "bg-gray-800 shadow-gray-700"
+                      : "bg-teal-50 shadow-teal-100"
+                  }`}
+                >
+                  <motion.div
+                    className={`text-2xl font-bold mb-4 w-fit mx-auto ${
+                      darkMode ? "text-teal-400" : "text-teal-600"
+                    }`}
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <FaQuoteLeft />
+                  </motion.div>
+                  <p
+                    className={`font-medium mb-4 ${
+                      darkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
+                    {stat.message}
+                  </p>
+                  <p
+                    className={`font-semibold ${
+                      darkMode ? "text-teal-400" : "text-teal-800"
+                    }`}
+                  >
+                    - {stat.name}
+                  </p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* CTA Section */}
+        <motion.section
+          className={`relative py-16 overflow-hidden transition-colors duration-300 ${
+            darkMode ? "bg-teal-950" : "bg-teal-900"
+          }`}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="container mx-auto px-4 text-center relative">
+            <motion.h2
+              initial={{ y: -20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.4 }}
+              className="text-3xl font-bold mb-4 text-white"
+            >
+              Partner in Healthcare Excellence
+            </motion.h2>
+
+            <motion.p
+              initial={{ x: -30, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="text-lg mb-6 max-w-xl mx-auto text-gray-200"
+            >
+              Collaborate with us to enhance medical care infrastructure and
+              accessibility.
+            </motion.p>
+
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.4,
+              }}
+            >
+              <button
+                className={`px-6 py-3 rounded-lg font-semibold text-base transition-colors shadow-lg hover:shadow-xl ${
+                  darkMode
+                    ? "bg-teal-800 text-white hover:bg-teal-700"
+                    : "bg-white text-teal-900 hover:bg-teal-50"
+                }`}
+                onClick={() => setIsModalOpen(true)}
+              >
+                Start Partnership
+              </button>
+            </motion.div>
+          </div>
+        </motion.section>
+      </motion.div>
+
+      {/* Partnership Modal with Email Format */}
+      <EmailModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </>
   );
 }
