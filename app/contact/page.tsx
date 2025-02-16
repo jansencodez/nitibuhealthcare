@@ -6,10 +6,34 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { VectorPattern } from "@/components/vector-patterns/ProductsAndServices";
 import Image from "next/image";
 import { useTheme } from "@/context/ThemeContext";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
+type FormData = {
+  name: string;
+  email: string;
+  message: string;
+};
 
 const ContactPage = () => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormData>();
+
+  const onSubmit = (data: FormData) => {
+    const subject = encodeURIComponent("Contact Form Submission");
+    const body = encodeURIComponent(
+      `Name: ${data.name}\nEmail: ${data.email}\nMessage: ${data.message}`
+    );
+
+    window.location.href = `mailto:nitibu.kenya@gmail.com?subject=${subject}&body=${body}`;
+    reset();
+  };
 
   // Dynamic styles
   const bgColor = isDarkMode ? "bg-gray-900" : "bg-gray-50";
@@ -178,6 +202,7 @@ const ContactPage = () => {
 
             <motion.form
               className="space-y-6"
+              onSubmit={handleSubmit(onSubmit)}
               variants={{
                 hidden: { opacity: 0 },
                 visible: {
@@ -186,30 +211,90 @@ const ContactPage = () => {
                 },
               }}
             >
-              {["Name", "Email", "Message"].map((field) => (
-                <motion.div
-                  key={field}
-                  variants={{
-                    hidden: { y: 20, opacity: 0 },
-                    visible: { y: 0, opacity: 1 },
-                  }}
-                >
-                  {field === "Message" ? (
-                    <textarea
-                      placeholder={`Your ${field}`}
-                      className={`w-full p-4 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all ${inputBg}`}
-                      rows={4}
-                    />
-                  ) : (
-                    <input
-                      type={field.toLowerCase()}
-                      placeholder={`Your ${field}`}
-                      className={`w-full p-4 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all ${inputBg}`}
-                    />
+              {/* Name Input */}
+              <motion.div
+                variants={{
+                  hidden: { y: 20, opacity: 0 },
+                  visible: { y: 0, opacity: 1 },
+                }}
+              >
+                <div className="relative">
+                  <input
+                    {...register("name", { required: "Name is required" })}
+                    placeholder="Your Name"
+                    className={`w-full p-4 border rounded-xl focus:outline-none focus:ring-2 ${
+                      errors.name ? "ring-red-500" : "focus:ring-teal-500"
+                    } transition-all ${inputBg}`}
+                  />
+                  {errors.name && (
+                    <span className="absolute right-4 top-4 text-red-500">
+                      {errors.name.message}
+                    </span>
                   )}
-                </motion.div>
-              ))}
+                </div>
+              </motion.div>
 
+              {/* Email Input */}
+              <motion.div
+                variants={{
+                  hidden: { y: 20, opacity: 0 },
+                  visible: { y: 0, opacity: 1 },
+                }}
+              >
+                <div className="relative">
+                  <input
+                    type="email"
+                    {...register("email", {
+                      required: "Email is required",
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: "Invalid email address",
+                      },
+                    })}
+                    placeholder="Your Email"
+                    className={`w-full p-4 border rounded-xl focus:outline-none focus:ring-2 ${
+                      errors.email ? "ring-red-500" : "focus:ring-teal-500"
+                    } transition-all ${inputBg}`}
+                  />
+                  {errors.email && (
+                    <span className="absolute right-4 top-4 text-red-500">
+                      {errors.email.message}
+                    </span>
+                  )}
+                </div>
+              </motion.div>
+
+              {/* Message Input */}
+              <motion.div
+                variants={{
+                  hidden: { y: 20, opacity: 0 },
+                  visible: { y: 0, opacity: 1 },
+                }}
+              >
+                <div className="relative">
+                  <textarea
+                    {...register("message", {
+                      required: "Message is required",
+                      minLength: {
+                        value: 10,
+                        message: "Message must be at least 10 characters",
+                      },
+                    })}
+                    placeholder="Your Message"
+                    rows={4}
+                    className={`w-full p-4 border rounded-xl focus:outline-none focus:ring-2 ${
+                      errors.message ? "ring-red-500" : "focus:ring-teal-500"
+                    } transition-all ${inputBg}`}
+                  />
+                  {errors.message && (
+                    <span className="absolute right-4 top-4 text-red-500">
+                      {errors.message.message}
+                    </span>
+                  )}
+                </div>
+              </motion.div>
+
+              {/* Submit Button */}
               <motion.div
                 variants={{
                   hidden: { scale: 0 },
