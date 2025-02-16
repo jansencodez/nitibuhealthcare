@@ -6,7 +6,6 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import { VectorPattern } from "@/components/vector-patterns/ProductsAndServices";
 import Image from "next/image";
 import { useTheme } from "@/context/ThemeContext";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 type FormData = {
