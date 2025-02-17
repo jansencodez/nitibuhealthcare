@@ -10,6 +10,29 @@ export const metadata: Metadata = {
   title: "Nitibu Healthcare",
   description:
     "Nitibu Healthcare is a leading provider of pharmaceuticals, medical supplies, and health promotion services in the region.",
+  keywords:
+    "nitibu, nitibuhealth, nitibuhealthcare, health, hospital equipment",
+  openGraph: {
+    type: "website",
+    title: "Nitibu Healthcare",
+    description:
+      "Nitibu Healthcare is a leading provider of pharmaceuticals, medical supplies, and health promotion services in the region.",
+    url: "https://www.nitibuhealthcare.com",
+    siteName: "Nitibu Healthcare",
+    locale: "en_KE",
+    // images: [
+    //   {
+    //     url: "/images/logo.png",
+    //     width: 800,
+    //     height: 600,
+    //     alt: "nitibu healthcare Logo",
+    //   },
+    // ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
