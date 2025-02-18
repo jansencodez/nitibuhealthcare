@@ -43,7 +43,7 @@ const navItems = [
     icon: <HiInformationCircle className="w-5 h-5" />,
   },
   {
-    name: "Become a Supplier",
+    name: "Apply for Supplier",
     href: "/supplier",
     icon: <HiChartBar className="w-5 h-5" />,
   },
