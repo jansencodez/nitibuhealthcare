@@ -155,7 +155,9 @@ const Sidebar: FC = () => {
           theme === "dark" ? "bg-gray-900" : "bg-teal-700"
         } ${textColor} shadow-md px-6 py-4 flex justify-between items-center z-50`}
       >
-        <h2 className="text-xl font-bold">Nitibu Healthcare</h2>
+        <Link href={"/"} className="text-xl font-bold">
+          Nitibu Healthcare
+        </Link>
 
         {/* Mobile Menu Button */}
         <button
