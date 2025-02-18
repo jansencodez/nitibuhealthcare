@@ -12,6 +12,7 @@ import {
   HiCog,
   HiMenu,
   HiX,
+  HiChartBar,
 } from "react-icons/hi";
 import { HiInboxStack } from "react-icons/hi2";
 import { FaMoon, FaSun } from "react-icons/fa";
@@ -40,6 +41,11 @@ const navItems = [
     name: "About us",
     href: "/about",
     icon: <HiInformationCircle className="w-5 h-5" />,
+  },
+  {
+    name: "Become a Supplier",
+    href: "/supplier",
+    icon: <HiChartBar className="w-5 h-5" />,
   },
   { name: "Contact", href: "/contact", icon: <HiMail className="w-5 h-5" /> },
 ];
@@ -94,7 +100,7 @@ const Sidebar: FC = () => {
                 >
                   <Link href={item.href}>
                     <span
-                      className={`flex items-center gap-3 px-4 py-3 rounded-xl text-lg transition-all ${
+                      className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all ${
                         isActive
                           ? `${activeBg} ${textColor} shadow-inner font-semibold`
                           : `${hoverBg} ${textColor}/90`
