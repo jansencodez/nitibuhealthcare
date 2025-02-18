@@ -11,7 +11,10 @@ export const metadata: Metadata = {
   description:
     "Nitibu Healthcare is a leading provider of pharmaceuticals, medical supplies, and health promotion services in the region.",
   keywords:
-    "nitibu, nitibuhealth, nitibuhealthcare, health, hospital equipment",
+    "nitibu, nitibuhealth, nitibuhealthcare, health, hospital equipment, pharmaceuticals, medical supplies, wellness",
+  authors: [{ name: "Nitibu Healthcare Team" }],
+  applicationName: "Nitibu Healthcare",
+
   openGraph: {
     type: "website",
     title: "Nitibu Healthcare",
@@ -20,21 +23,55 @@ export const metadata: Metadata = {
     url: "https://www.nitibuhealthcare.com",
     siteName: "Nitibu Healthcare",
     locale: "en_KE",
-    // images: [
-    //   {
-    //     url: "/images/logo.png",
-    //     width: 800,
-    //     height: 600,
-    //     alt: "nitibu healthcare Logo",
-    //   },
-    // ],
+    images: [
+      {
+        url: "/images/logo.jpg",
+        width: 800,
+        height: 600,
+        alt: "Nitibu Healthcare Logo",
+        type: "image/jpg",
+      },
+    ],
   },
+
+  twitter: {
+    card: "summary_large_image",
+    site: "@nitibuhealthcare",
+    creator: "@nitibuhealthcare",
+    title: "Nitibu Healthcare",
+    description:
+      "Nitibu Healthcare is a leading provider of pharmaceuticals, medical supplies, and health promotion services in the region.",
+    images: {
+      url: "/images/logo.jpg",
+      width: 800,
+      height: 600,
+      alt: "Nitibu Healthcare Logo",
+    },
+  },
+
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
+
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/favicon.ico",
+    shortcut: "/favicon.ico",
   },
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">

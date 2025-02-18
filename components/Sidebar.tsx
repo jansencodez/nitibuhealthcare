@@ -17,6 +17,7 @@ import { HiInboxStack } from "react-icons/hi2";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { SiHomeassistantcommunitystore } from "react-icons/si";
 import { useTheme } from "@/context/ThemeContext";
+import Image from "next/image";
 
 const navItems = [
   { name: "Home", href: "/", icon: <HiHome className="w-5 h-5" /> },
@@ -70,16 +71,13 @@ const Sidebar: FC = () => {
           animate={{ opacity: 1 }}
           className="mb-12 pl-2"
         >
-          <h2 className="text-2xl font-bold flex items-center gap-2">
-            <div
-              className={`w-8 h-8 ${
-                theme === "dark" ? "bg-gray-700" : "bg-white/20"
-              } rounded-lg flex items-center justify-center`}
-            >
-              <span className={`text-lg font-semibold ${textColor}`}>N</span>
-            </div>
-            Nitibu Healthcare
-          </h2>
+          <Image
+            src="/images/logo.jpg"
+            alt="Nitibu Healthcare Logo"
+            width={200}
+            height={100}
+            className="rounded-lg"
+          />
         </motion.div>
 
         {/* Navigation */}
