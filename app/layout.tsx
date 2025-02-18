@@ -77,7 +77,7 @@ function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     <html lang="en">
       <body className={"antialiased bg-teal-100"}>
         <Sidebar />
-        <main className="flex-1 lg:ml-[266px] relative lg:mr-[10px] ">
+        <main className="flex-1 lg:ml-[250px] relative  ">
           <VectorPattern
             type="diagonal"
             opacity={0.4}
