@@ -31,6 +31,7 @@ export default function SupplierApplication() {
     references: string;
     termsAgreed: boolean;
     description: string;
+    message: string;
   }
 
   const onSubmit = (formData: FormData) => {
@@ -59,6 +60,9 @@ export default function SupplierApplication() {
       
       Additional Information:
       ${formData.description}
+
+      Message:
+      ${formData.message}
       
       Agreements:
       Terms Accepted: ${formData.termsAgreed ? "Yes" : "No"}
@@ -419,6 +423,31 @@ export default function SupplierApplication() {
             )}
           </div>
 
+          {/* Message Section */}
+          <div>
+            <label
+              className={`block text-sm font-medium mb-1 ${
+                isDark ? "text-teal-300" : "text-teal-800"
+              }`}
+            >
+              Message *
+            </label>
+            <textarea
+              {...register("message", { required: "Message is required" })}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 transition ${
+                isDark
+                  ? "bg-gray-700 border-gray-500 focus:ring-teal-400"
+                  : "bg-teal-50 border-teal-300 focus:ring-teal-500"
+              } ${errors.message ? "border-red-500" : ""}`}
+              rows={4}
+            />
+            {errors.message && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.message.message}
+              </p>
+            )}
+          </div>
+
           {/* Terms Agreement */}
           <div className="space-y-2">
             <div className="flex items-center">
@@ -449,11 +478,6 @@ export default function SupplierApplication() {
               </p>
             )}
           </div>
-          {errors.termsAgreed && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.termsAgreed.message}
-            </p>
-          )}
 
           {/* Submit Button */}
           <div className="text-center">
