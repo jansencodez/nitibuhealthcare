@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useTheme } from "@/context/ThemeContext";
 import { useForm } from "react-hook-form";
+import TermsModal from "@/components/inquiry/modals/TermsAndConditions";
 
 export default function SupplierApplication() {
   const {
@@ -419,26 +420,34 @@ export default function SupplierApplication() {
           </div>
 
           {/* Terms Agreement */}
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="termsAgreed"
-              {...register("termsAgreed", {
-                required: "You must agree to the terms and conditions",
-              })}
-              className={`w-4 h-4 ${
-                isDark ? "accent-teal-400" : "accent-teal-600"
-              }`}
-            />
-            <label
-              htmlFor="termsAgreed"
-              className={`ml-2 text-sm ${
-                isDark ? "text-teal-300" : "text-teal-800"
-              }`}
-            >
-              I agree to the Terms and Conditions and certify that all provided
-              information is accurate. *
-            </label>
+          <div className="space-y-2">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="termsAgreed"
+                {...register("termsAgreed", {
+                  required: "You must agree to the terms and conditions",
+                })}
+                className={`w-4 h-4 ${
+                  isDark ? "accent-teal-400" : "accent-teal-600"
+                }`}
+              />
+              <label
+                htmlFor="termsAgreed"
+                className={`ml-2 text-sm ${
+                  isDark ? "text-teal-300" : "text-teal-800"
+                }`}
+              >
+                I agree to the
+                <TermsModal /> {/* Add the modal component here */}
+                and certify that all provided information is accurate. *
+              </label>
+            </div>
+            {errors.termsAgreed && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.termsAgreed.message}
+              </p>
+            )}
           </div>
           {errors.termsAgreed && (
             <p className="text-red-500 text-sm mt-1">
