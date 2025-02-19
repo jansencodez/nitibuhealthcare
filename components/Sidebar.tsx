@@ -12,7 +12,7 @@ import {
   HiCog,
   HiMenu,
   HiX,
-  HiChartBar,
+  HiOutlineQuestionMarkCircle,
 } from "react-icons/hi";
 import { HiInboxStack } from "react-icons/hi2";
 import { FaMoon, FaSun } from "react-icons/fa";
@@ -23,10 +23,16 @@ import Image from "next/image";
 const navItems = [
   { name: "Home", href: "/", icon: <HiHome className="w-5 h-5" /> },
   {
+    name: "About us",
+    href: "/about",
+    icon: <HiInformationCircle className="w-5 h-5" />,
+  },
+  {
     name: "Services",
     href: "/services",
     icon: <HiBriefcase className="w-5 h-5" />,
   },
+
   {
     name: "Products",
     href: "/products",
@@ -37,17 +43,12 @@ const navItems = [
     href: "/engagement",
     icon: <SiHomeassistantcommunitystore className="w-5 h-5" />,
   },
-  {
-    name: "About us",
-    href: "/about",
-    icon: <HiInformationCircle className="w-5 h-5" />,
-  },
-  {
-    name: "Apply for Supplier",
-    href: "/supplier",
-    icon: <HiChartBar className="w-5 h-5" />,
-  },
   { name: "Contact", href: "/contact", icon: <HiMail className="w-5 h-5" /> },
+  {
+    name: "Inquiry Form",
+    href: "/inquiry",
+    icon: <HiOutlineQuestionMarkCircle className="w-5 h-5" />,
+  },
 ];
 
 const Sidebar: FC = () => {

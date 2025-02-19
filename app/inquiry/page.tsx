@@ -89,7 +89,7 @@ export default function SupplierApplication() {
             isDark ? "text-teal-300" : "text-teal-700"
           }`}
         >
-          Become a Nitibu Supplier
+          Make an Inquiry
         </h1>
 
         <p className="text-sm text-lime-500 text-center font-semibold mb-4">
@@ -176,6 +176,7 @@ export default function SupplierApplication() {
                 <option value="">Select Company Type</option>
                 <option value="manufacturer">Manufacturer</option>
                 <option value="distributor">Distributor</option>
+                <option value="agent">Agent</option>
                 <option value="wholesaler">Wholesaler</option>
                 <option value="other">Other</option>
               </select>
