@@ -7,6 +7,7 @@ import Product from "@/types/Product";
 import { FaXmark } from "react-icons/fa6";
 import ProductCarousel from "./ProductCarousel";
 import getProductImage from "@/utils/getProductImage";
+import formatProductName from "@/utils/formatProductName";
 
 interface ProductModalProps {
   product: Product;
@@ -71,9 +72,10 @@ export default function ProductModal({
             className={`text-2xl font-bold ${
               isDark ? "text-teal-400" : "text-teal-900"
             }`}
-          >
-            {selectedProduct.name}
-          </h2>
+            dangerouslySetInnerHTML={{
+              __html: formatProductName(selectedProduct.name),
+            }}
+          />
           <button
             onClick={onClose}
             className={`p-2 rounded-full hover:bg-opacity-20 transition-colors ${

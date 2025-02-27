@@ -145,11 +145,7 @@ export default function Home() {
           transition={{ duration: 0.8 }}
         >
           <ProductsAndServicesOverview />
-          <AdvancedCarousel
-            images={products}
-            autoPlayInterval={4000}
-            visibleItems={3}
-          />
+          <AdvancedCarousel images={products} autoPlayInterval={4000} />
         </motion.section>
 
         {/* Impact Section */}
