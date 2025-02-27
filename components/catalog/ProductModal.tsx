@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Product from "@/types/Product";
@@ -10,19 +13,37 @@ interface ProductModalProps {
   onClose: () => void;
   isDark: boolean;
   allProducts: Product[];
-  onProductSelect: (product: Product) => void;
 }
 
 export default function ProductModal({
-  product,
+  product: initialProduct,
   onClose,
   isDark,
   allProducts,
-  onProductSelect,
 }: ProductModalProps) {
+  const [selectedProduct, setSelectedProduct] = useState(initialProduct);
+
   const relatedProducts = allProducts
-    .filter((p) => p.category === product.category && p.id !== product.id)
+    .filter(
+      (p) =>
+        p.category === selectedProduct.category && p.id !== selectedProduct.id
+    )
     .slice(0, 5);
+
+  // Image handling
+  const primaryImage = getProductImage(selectedProduct);
+  const fallbackImage = `/api/og?name=${encodeURIComponent(
+    selectedProduct.name
+  )}`;
+  const [src, setSrc] = useState(primaryImage);
+  const [hasError, setHasError] = useState(false);
+
+  const handleError = () => {
+    if (src !== fallbackImage) {
+      setSrc(fallbackImage);
+      setHasError(true);
+    }
+  };
 
   return (
     <motion.div
@@ -51,7 +72,7 @@ export default function ProductModal({
               isDark ? "text-teal-400" : "text-teal-900"
             }`}
           >
-            {product.name}
+            {selectedProduct.name}
           </h2>
           <button
             onClick={onClose}
@@ -67,23 +88,35 @@ export default function ProductModal({
           </button>
         </div>
         <div className="p-6 space-y-4">
+          {/* Image */}
           <div className="relative aspect-video rounded-lg overflow-hidden">
-            {product.isMock ? (
+            {selectedProduct.isMock ? (
               <div className="absolute inset-0 flex items-center justify-center bg-gray-200 dark:bg-gray-700">
                 <span className="text-2xl font-bold text-gray-800 dark:text-gray-200">
                   Coming Soon
                 </span>
               </div>
             ) : (
-              <Image
-                src={getProductImage(product)}
-                alt={product.name}
-                fill
-                className="object-cover"
-              />
+              <>
+                <Image
+                  src={src}
+                  onError={handleError}
+                  alt={selectedProduct.name}
+                  fill
+                  className="object-cover"
+                />
+                {hasError && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gray-200 dark:bg-gray-700">
+                    <span className="text-2xl font-bold text-gray-800 dark:text-gray-200">
+                      Coming Soon
+                    </span>
+                  </div>
+                )}
+              </>
             )}
           </div>
 
+          {/* Description & Specs */}
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <h3
@@ -94,19 +127,19 @@ export default function ProductModal({
                 Description
               </h3>
               <p className={isDark ? "text-gray-300" : "text-gray-600"}>
-                {product.description}
+                {selectedProduct.description}
               </p>
             </div>
             <div>
               <h3
-                className={`first-letter:}text-lg font-semibold mb-2 ${
+                className={`text-lg font-semibold mb-2 ${
                   isDark ? "text-teal-400" : "text-teal-900"
                 }`}
               >
                 Specifications
               </h3>
               <ul className="list-disc pl-4 space-y-2">
-                {product.specs.map((spec, i) => (
+                {selectedProduct.specs.map((spec, i) => (
                   <li
                     key={i}
                     className={isDark ? "text-gray-300" : "text-gray-600"}
@@ -123,7 +156,11 @@ export default function ProductModal({
             products={relatedProducts}
             title="Related Products"
             isDark={isDark}
-            onProductClick={onProductSelect}
+            onProductClick={(newProduct) => {
+              setSelectedProduct(newProduct);
+              setSrc(getProductImage(newProduct)); // Update image source
+              setHasError(false); // Reset error state for new product
+            }}
           />
         </div>
       </motion.div>

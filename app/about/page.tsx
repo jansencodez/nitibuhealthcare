@@ -122,10 +122,10 @@ const StorySection = () => {
                 theme === "dark" ? "text-gray-300" : "text-gray-600"
               }`}
             >
-              Founded in <strong>2021</strong>, Nitibu Healthcare ensures reliable access to
-              high-quality pharmaceutical and non-pharmaceutical consumables
-              across East and Central Africa, serving as the backbone for
-              hundreds of healthcare facilities.
+              Founded in <strong>2021</strong>, Nitibu Healthcare ensures
+              reliable access to high-quality pharmaceutical and
+              non-pharmaceutical consumables across East and Central Africa,
+              serving as the backbone for hundreds of healthcare facilities.
             </p>
           </motion.div>
         </div>
@@ -151,7 +151,8 @@ const InitiativesSection = () => {
       title: "Nain Dialysis Center",
       items: [
         "7 regional dialysis units",
-        "300-bed capacity",
+        "300-bed capacity hospital",
+        "50-bed kidney transplant unit",
         "Specialized transplant center",
       ],
     },

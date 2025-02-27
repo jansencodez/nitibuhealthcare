@@ -68,6 +68,19 @@ export default function ProductsAndServicesOverview() {
             Explore Services
           </motion.button>
         </Link>
+        <Link href="/catalog">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`px-6 py-3 text-lg font-semibold rounded-lg shadow-lg transition-colors ${
+              theme === "dark"
+                ? "bg-teal-700 hover:bg-teal-600 text-white"
+                : "bg-teal-600 hover:bg-teal-700 text-white"
+            }`}
+          >
+            Explore Catalog
+          </motion.button>
+        </Link>
       </motion.div>
     </div>
   );

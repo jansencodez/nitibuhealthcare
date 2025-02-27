@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { VectorPattern } from "@/components/vector-patterns/ProductsAndServices";
 import {
@@ -10,6 +10,7 @@ import {
   FaMicrophone,
 } from "react-icons/fa";
 import { useTheme } from "@/context/ThemeContext";
+import { useState } from "react";
 
 const initiatives = [
   {
@@ -44,6 +45,7 @@ const initiatives = [
 
 export default function HealthPromotionPage() {
   const { theme } = useTheme();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Animation variants
   const containerVariants = {
@@ -66,15 +68,15 @@ export default function HealthPromotionPage() {
     },
   };
 
-  // const hoverVariants = {
-  //   hover: {
-  //     scale: 1.02,
-  //     transition: { type: "spring", stiffness: 300, damping: 10 },
-  //   },
-  // };
-
   const imageHoverVariants = {
     hover: { scale: 1.05 },
+  };
+
+  // Modal animation variants
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1 },
+    exit: { opacity: 0, scale: 0.8 },
   };
 
   return (
@@ -146,7 +148,7 @@ export default function HealthPromotionPage() {
           className="grid grid-cols-1 md:grid-cols-2 gap-8"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }} // Adjusted amount
+          viewport={{ once: true, amount: 0.1 }}
           variants={containerVariants}
         >
           {initiatives.map((initiative, index) => (
@@ -248,6 +250,7 @@ export default function HealthPromotionPage() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => setIsModalOpen(true)}
               className={`px-10 py-5 rounded-xl font-semibold text-lg shadow-lg hover:shadow-2xl transition-all ${
                 theme === "dark"
                   ? "bg-white text-gray-900 hover:bg-gray-100"
@@ -260,6 +263,45 @@ export default function HealthPromotionPage() {
           </motion.div>
         </motion.div>
       </section>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsModalOpen(false)}
+          >
+            <motion.div
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className={`p-6 rounded-lg shadow-lg max-w-sm w-full ${
+                theme === "dark"
+                  ? "bg-gray-800 text-white"
+                  : "bg-white text-gray-900"
+              }`}
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
+            >
+              <h3 className="text-xl font-semibold mb-4">Coming Soon</h3>
+              <p className="mb-6">This is not available yet.</p>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className={`px-4 py-2 rounded-md font-medium ${
+                  theme === "dark"
+                    ? "bg-teal-500 text-white hover:bg-teal-600"
+                    : "bg-teal-600 text-white hover:bg-teal-700"
+                }`}
+              >
+                Close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
