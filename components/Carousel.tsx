@@ -121,19 +121,7 @@ const AdvancedCarousel: React.FC<CarouselProps> = ({
 
   return (
     <div className="relative w-full max-w-7xl mx-auto my-6 sm:my-8 px-4 sm:px-6 overflow-hidden">
-      <div className="relative flex items-center justify-between">
-        {/* Left Arrow */}
-        <button
-          onClick={() => paginate(-1)}
-          className={`absolute left-0 sm:-left-10 md:-left-12 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full shadow-md transition-colors ${
-            theme === "dark"
-              ? "bg-gray-800 text-teal-400 hover:bg-gray-700"
-              : "bg-white text-teal-600 hover:bg-teal-50"
-          }`}
-        >
-          <FaChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-        </button>
-
+      <div className="relative">
         {/* Carousel Content */}
         <div
           className="relative w-full rounded-lg shadow-lg h-[300px] sm:h-[350px] md:h-[400px]"
@@ -196,10 +184,20 @@ const AdvancedCarousel: React.FC<CarouselProps> = ({
           </AnimatePresence>
         </div>
 
-        {/* Right Arrow */}
+        {/* Navigation Arrows */}
+        <button
+          onClick={() => paginate(-1)}
+          className={`absolute left-2 sm:left-4 lg:left-6 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full shadow-md transition-colors ${
+            theme === "dark"
+              ? "bg-gray-800 text-teal-400 hover:bg-gray-700"
+              : "bg-white text-teal-600 hover:bg-teal-50"
+          }`}
+        >
+          <FaChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+        </button>
         <button
           onClick={() => paginate(1)}
-          className={`absolute right-0 sm:-right-10 md:-right-12 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full shadow-md transition-colors ${
+          className={`absolute right-2 sm:right-4 lg:right-6 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 rounded-full shadow-md transition-colors ${
             theme === "dark"
               ? "bg-gray-800 text-teal-400 hover:bg-gray-700"
               : "bg-white text-teal-600 hover:bg-teal-50"
