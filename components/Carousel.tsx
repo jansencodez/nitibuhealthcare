@@ -32,13 +32,13 @@ const AdvancedCarousel: React.FC<CarouselProps> = ({
   const minSwipeDistance = 50;
 
   // Determine visible items based on screen size
-  const getVisibleItems = () => {
+  const getVisibleItems = useCallback(() => {
     if (typeof window === "undefined") return visibleItems.md || 3;
     const width = window.innerWidth;
     if (width < 640) return visibleItems.xs || 1;
     if (width < 768) return visibleItems.sm || 2;
     return visibleItems.md || 3;
-  };
+  }, [visibleItems]);
 
   const [currentVisibleItems, setCurrentVisibleItems] = useState(
     getVisibleItems()
@@ -48,7 +48,7 @@ const AdvancedCarousel: React.FC<CarouselProps> = ({
     const handleResize = () => setCurrentVisibleItems(getVisibleItems());
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [visibleItems]);
+  }, [visibleItems, getVisibleItems]);
 
   const paginate = useCallback(
     (newDirection: number) => {
